@@ -1,0 +1,4 @@
+pandas
+selenium
+bs4
+lxml
