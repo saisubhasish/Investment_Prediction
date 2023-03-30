@@ -7,11 +7,11 @@ from bs4 import BeautifulSoup
 from investment_prediction.exception import InvestmentPredictionException
 
 
-save_file_to_path = "D:/FSDS-iNeuron/10.Projects-DS/Investment_Prediction/dataset/"
+save_file_to_path = "D:/FSDS-iNeuron/10.Projects-DS/Investment_Prediction/raw_dataset/"
 start_date = '2016-03-19'
 end_date = '2023-03-19'
-driver_path = r"D:\FSDS-iNeuron\10.Projects-DS\Investment_Prediction\Selenium\chromedriver.exe"
-company = 'tata-consultancy-services'
+driver_path = r"D:\FSDS-iNeuron\10.Projects-DS\Investment_Prediction\selenium\chromedriver.exe"
+company = 'itc'
 
 #britannia-industries --> Britannia Inductries
 #itc --> ITC

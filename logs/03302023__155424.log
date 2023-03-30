@@ -1,0 +1,32 @@
+[ 2023-03-30 15:54:24,788 ] 14 root - INFO - Reading the raw data from directory
+[ 2023-03-30 15:54:24,826 ] 21 root - INFO - Preparing list of dataframes
+[ 2023-03-30 15:54:24,826 ] 14 root - INFO - Function to drop 'Unnamed' column
+[ 2023-03-30 15:54:24,827 ] 42 root - INFO - Converting "Volume" column values to numerical
+[ 2023-03-30 15:54:24,830 ] 58 root - INFO - Converting 'Chg%' column the values to numerical
+[ 2023-03-30 15:54:24,832 ] 63 root - INFO - Converting datatype of 'Date' column
+[ 2023-03-30 15:54:24,832 ] 64 root - INFO - Removing the extra characters from Date column
+[ 2023-03-30 15:54:25,059 ] 70 root - INFO - Setting 'Date' as index
+[ 2023-03-30 15:54:25,060 ] 14 root - INFO - Function to drop 'Unnamed' column
+[ 2023-03-30 15:54:25,061 ] 42 root - INFO - Converting "Volume" column values to numerical
+[ 2023-03-30 15:54:25,064 ] 58 root - INFO - Converting 'Chg%' column the values to numerical
+[ 2023-03-30 15:54:25,066 ] 63 root - INFO - Converting datatype of 'Date' column
+[ 2023-03-30 15:54:25,066 ] 64 root - INFO - Removing the extra characters from Date column
+[ 2023-03-30 15:54:25,276 ] 70 root - INFO - Setting 'Date' as index
+[ 2023-03-30 15:54:25,277 ] 14 root - INFO - Function to drop 'Unnamed' column
+[ 2023-03-30 15:54:25,277 ] 42 root - INFO - Converting "Volume" column values to numerical
+[ 2023-03-30 15:54:25,280 ] 58 root - INFO - Converting 'Chg%' column the values to numerical
+[ 2023-03-30 15:54:25,281 ] 63 root - INFO - Converting datatype of 'Date' column
+[ 2023-03-30 15:54:25,282 ] 64 root - INFO - Removing the extra characters from Date column
+[ 2023-03-30 15:54:25,497 ] 70 root - INFO - Setting 'Date' as index
+[ 2023-03-30 15:54:25,498 ] 14 root - INFO - Function to drop 'Unnamed' column
+[ 2023-03-30 15:54:25,499 ] 42 root - INFO - Converting "Volume" column values to numerical
+[ 2023-03-30 15:54:25,502 ] 58 root - INFO - Converting 'Chg%' column the values to numerical
+[ 2023-03-30 15:54:25,504 ] 63 root - INFO - Converting datatype of 'Date' column
+[ 2023-03-30 15:54:25,504 ] 64 root - INFO - Removing the extra characters from Date column
+[ 2023-03-30 15:54:25,726 ] 70 root - INFO - Setting 'Date' as index
+[ 2023-03-30 15:54:25,726 ] 14 root - INFO - Function to drop 'Unnamed' column
+[ 2023-03-30 15:54:25,727 ] 42 root - INFO - Converting "Volume" column values to numerical
+[ 2023-03-30 15:54:25,729 ] 58 root - INFO - Converting 'Chg%' column the values to numerical
+[ 2023-03-30 15:54:25,731 ] 63 root - INFO - Converting datatype of 'Date' column
+[ 2023-03-30 15:54:25,731 ] 64 root - INFO - Removing the extra characters from Date column
+[ 2023-03-30 15:54:25,942 ] 70 root - INFO - Setting 'Date' as index
