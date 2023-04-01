@@ -1,6 +1,22 @@
+import sys
 import pandas as pd
 from investment_prediction.logger import logging
+from investment_prediction.exception import InvestmentPredictionException
 
+
+def add_symbol(df_list, symbol_list):
+    """
+    Description: This function adds column 'Symbol' in dataframes
+    =========================================================
+    Params:
+    df_list: List of dataframes
+    symbol_list: List of Stock symbols
+    =========================================================
+    """
+    i = 0
+    for df in df_list:
+        df['Symbol'] = symbol_list[i]
+        i+=1
 
 def column_drop(df):
     """
@@ -11,8 +27,11 @@ def column_drop(df):
     =========================================================
     return Pandas dataframe
     """
-    logging.info("Function to drop 'Unnamed' column")
-    df.drop('Unnamed: 0', axis=1, inplace=True)
+    try:
+        df.drop('Unnamed: 0', axis=1, inplace=True)
+    except Exception as e:
+        raise InvestmentPredictionException(e, sys)
+
     return df
 
 def convert_to_int(value):
@@ -39,9 +58,12 @@ def convert_value_to_numerical(df):
     =========================================================
     returs Pandas dataframe
     """
-    logging.info('Converting "Volume" column values to numerical')
-    values = df['Volume']
-    df['Volume'] = df['Volume'].apply(convert_to_int)
+    try:
+        values = df['Volume']
+        df['Volume'] = df['Volume'].apply(convert_to_int)
+    except Exception as e:
+        raise InvestmentPredictionException(e, sys)
+
     return df
 
 def convert_percentage_to_float(value):
@@ -55,18 +77,50 @@ def convert_percentage_to_float(value):
     return float(value.replace('%', ''))/100
 
 def convert_percentage_value(df):
-    logging.info("Converting 'Chg%' column the values to numerical")
-    df['Chg%'] = df['Chg%'].apply(convert_percentage_to_float)
+    """
+    Description: This function will convert 'Chg%' column values to numeric
+    =========================================================
+    Params:
+    dataframe: df
+    =========================================================
+    return Pandas dataframe
+    """
+    try:
+        df['Chg%'] = df['Chg%'].apply(convert_percentage_to_float)
+    except Exception as e:
+        raise InvestmentPredictionException(e, sys)
+    
     return df
 
 def date_operarion(df):
-    logging.info("Converting datatype of 'Date' column")
-    logging.info("Removing the extra characters from Date column")
-    df['Date'] = df['Date'].map(lambda x: str(x).strip().rstrip('E').rstrip('D').rstrip('S').rstrip(' S '))
-    df['Date'] = pd.to_datetime(df['Date'])
+    """
+    Description: This function removes anomalies from 'Date' column
+    =========================================================
+    Params:
+    dataframe: df
+    =========================================================
+    return Pandas dataframe
+    """
+    try:
+        df['Date'] = df['Date'].map(lambda x: str(x).strip().rstrip('E').rstrip('D').rstrip('S').rstrip(' S '))
+        df['Date'] = pd.to_datetime(df['Date'])
+    except Exception as e:
+        raise InvestmentPredictionException(e, sys)
+    
     return df
 
 def set_index_as_Date(df):
-    logging.info("Setting 'Date' as index")
-    df.set_index('Date', inplace=True)
+    """
+    Description: This function sets the 'Date' column as index
+    =========================================================
+    Params:
+    dataframe: df
+    =========================================================
+    return Pandas dataframe
+    """
+    try:
+        df.set_index('Date', inplace=True)
+    except Exception as e:
+        raise InvestmentPredictionException(e, sys)
+
     return df

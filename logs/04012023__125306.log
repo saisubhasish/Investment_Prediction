@@ -1,0 +1,12 @@
+[ 2023-04-01 12:53:06,042 ] 16 root - INFO - Reading the raw data from directory
+[ 2023-04-01 12:53:06,133 ] 23 root - INFO - Preparing list of dataframes
+[ 2023-04-01 12:53:06,134 ] 26 root - INFO - Defining stock name list
+[ 2023-04-01 12:53:06,134 ] 29 root - INFO - Adding 'Symbol' column to dataframe
+[ 2023-04-01 12:53:06,136 ] 35 root - INFO - Pre-processing the raw data
+[ 2023-04-01 12:53:06,136 ] 38 root - INFO - Dropping 'Unnamed : 0' column from dataframes
+[ 2023-04-01 12:53:06,142 ] 41 root - INFO - Converting "Volume" column values to numerical
+[ 2023-04-01 12:53:06,153 ] 44 root - INFO - Converting 'Chg%' column the values to numerical
+[ 2023-04-01 12:53:06,161 ] 47 root - INFO - Converting datatype of 'Date' column
+[ 2023-04-01 12:53:06,162 ] 48 root - INFO - Removing the extra characters from Date column
+[ 2023-04-01 12:53:07,734 ] 51 root - INFO - Setting 'Date' as index
+[ 2023-04-01 12:53:07,738 ] 38 root - INFO - Dropping 'Unnamed : 0' column from dataframes

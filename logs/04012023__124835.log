@@ -1,0 +1,9 @@
+[ 2023-04-01 12:48:35,069 ] 31 root - INFO - Step 1: Create a session and load the page
+[ 2023-04-01 12:48:35,069 ] 32 root - INFO - Preparing time-stamp for start and end interval
+[ 2023-04-01 12:48:35,070 ] 36 root - INFO - Preparing url with company name and time interva
+[ 2023-04-01 12:48:35,070 ] 39 root - INFO - Requesting tata-consultancy-services company url in Chrome browser
+[ 2023-04-01 12:49:19,023 ] 49 root - INFO - Scrolling to the end of the page
+[ 2023-04-01 12:49:37,873 ] 70 root - INFO - Step 2: Close the pop-up if it appears
+[ 2023-04-01 12:49:37,875 ] 77 root - INFO - Step 3: Parse lxml code and grab tables with Beautiful Soup
+[ 2023-04-01 12:49:40,491 ] 84 root - INFO - Step 4: Read tables with Pandas read_html()
+[ 2023-04-01 12:49:43,463 ] 92 root - INFO - Saving scrapped data to directory

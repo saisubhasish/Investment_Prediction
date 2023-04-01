@@ -1,0 +1,12 @@
+[ 2023-04-01 13:09:56,250 ] 16 root - INFO - Reading the raw data from directory
+[ 2023-04-01 13:09:56,293 ] 23 root - INFO - Preparing list of dataframes
+[ 2023-04-01 13:09:56,293 ] 26 root - INFO - Defining stock name list
+[ 2023-04-01 13:09:56,293 ] 29 root - INFO - Adding 'Symbol' column to dataframe
+[ 2023-04-01 13:09:56,295 ] 35 root - INFO - Pre-processing the raw data
+[ 2023-04-01 13:09:56,295 ] 38 root - INFO - Dropping 'Unnamed : 0' column from dataframes
+[ 2023-04-01 13:09:56,299 ] 41 root - INFO - Converting "Volume" column values to numerical
+[ 2023-04-01 13:09:56,312 ] 44 root - INFO - Converting 'Chg%' column the values to numerical
+[ 2023-04-01 13:09:56,320 ] 47 root - INFO - Converting datatype of 'Date' column
+[ 2023-04-01 13:09:56,321 ] 48 root - INFO - Removing the extra characters from Date column
+[ 2023-04-01 13:09:57,341 ] 51 root - INFO - Setting 'Date' as index
+[ 2023-04-01 13:09:57,371 ] 59 root - INFO - Saving the processed data to : D:/FSDS-iNeuron/10.Projects-DS/Investment_Prediction/pre_processed_dataset/
