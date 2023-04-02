@@ -20,8 +20,9 @@ COLLECTION_NAME_tatam = 'TATAMOTORS'
 COLLECTION_NAME_tcs = 'TCS'
 
 
-if __name__=="__main__":
-    def dump():
+class Data_Loading:
+    @staticmethod
+    def dump(DATABASE_NAME):
         df_br = pd.read_csv(DATA_FILE_PATH_br)
         df_itc = pd.read_csv(DATA_FILE_PATH_itc)
         df_rel = pd.read_csv(DATA_FILE_PATH_rel)
@@ -64,4 +65,4 @@ if __name__=="__main__":
             i+=1
 
     # Function call
-    dump()
+Data_Loading.dump(DATABASE_NAME)
