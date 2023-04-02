@@ -21,7 +21,7 @@ COLLECTION_NAME_tcs = 'TCS'
 
 
 if __name__=="__main__":
-    def dump(DATABASE_NAME, COLLECTION_NAME_br, COLLECTION_NAME_itc, COLLECTION_NAME_rel, COLLECTION_NAME_tatam, COLLECTION_NAME_tcs):
+    def dump():
         df_br = pd.read_csv(DATA_FILE_PATH_br)
         df_itc = pd.read_csv(DATA_FILE_PATH_itc)
         df_rel = pd.read_csv(DATA_FILE_PATH_rel)
@@ -57,10 +57,11 @@ if __name__=="__main__":
 
         print(json_record_br[1])
 
-        logging.info("insert converted json record to mongo db")
+        logging.info("inserting converted json record to mongo db")
         i = 0
         for collection in collection_list:
             mongo_client[DATABASE_NAME][collection].insert_many(json_record_list[i])
             i+=1
 
-    dump(DATABASE_NAME, COLLECTION_NAME_br, COLLECTION_NAME_itc, COLLECTION_NAME_rel, COLLECTION_NAME_tatam, COLLECTION_NAME_tcs)
+    # Function call
+    dump()
