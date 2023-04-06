@@ -1,5 +1,6 @@
 import sys
 import pandas as pd
+from investment_prediction.config import mongo_client
 from investment_prediction.logger import logging
 from investment_prediction.exception import InvestmentPredictionException
 
@@ -23,7 +24,7 @@ def column_drop(df):
     Description: This function drops the 'Unnamed: 0' column from dataframe
     =========================================================
     Params:
-    dataframe: df
+    df : data frame
     =========================================================
     return Pandas dataframe
     """
@@ -54,7 +55,7 @@ def convert_value_to_numerical(df):
     Description: This function converts the value of "volume" column 
     =========================================================
     Params:
-    dataframe: df
+    df : data frame
     =========================================================
     returs Pandas dataframe
     """
@@ -81,7 +82,7 @@ def convert_percentage_value(df):
     Description: This function will convert 'Chg%' column values to numeric
     =========================================================
     Params:
-    dataframe: df
+    df : data frame
     =========================================================
     return Pandas dataframe
     """
@@ -124,3 +125,41 @@ def set_index_as_Date(df):
         raise InvestmentPredictionException(e, sys)
 
     return df
+
+def get_collection_as_dataframe(database_name:str,collection_name:str)->pd.DataFrame:
+    """
+    Description: This function return collection as dataframe
+    =========================================================
+    Params:
+    database_name: database name
+    collection_name: collection name
+    =========================================================
+    return Pandas dataframe of a collection
+    """
+    try:    
+        logging.info(f"Reading data from database: {database_name} and collection: {collection_name}")
+        df = pd.DataFrame(list(mongo_client[database_name][collection_name].find()))
+        logging.info(f"Found columns: {df.columns}")
+        if "_id" in df.columns:
+            logging.info(f"Dropping column: _id ")
+            df = df.drop("_id",axis=1)
+        logging.info(f"Row and columns in df: {df.shape}")
+        return df
+    except Exception as e:
+        raise InvestmentPredictionException(e, sys)
+
+def split_data(df, test_size):
+    """
+    Description: This function returns numpy array data
+    =========================================================
+    Params:
+    df: data frame
+    test_size: split size
+    =========================================================
+    returns train_set nad test_set
+    """
+    X = X.values # Convert to NumPy array
+    split = int(len(X) * (1-test_size))
+    train_set = X[: split]
+    test_set = X[split:]
+    return train_set, test_set

@@ -43,7 +43,7 @@ class DataIngestionConfig:
             self.collection_name_rel="RELIANCE"
             self.collection_name_tatam="TATAMOTORS"
             self.collection_name_tcs="TCS"
-            
+
             self.data_ingestion_dir = os.path.join(training_pipeline_config.artifact_dir , "data_ingestion")
 
             self.feature_store_file_path = os.path.join(self.data_ingestion_dir,"feature_store",BRITANNIA_FILE_NAME)
@@ -63,7 +63,9 @@ class DataIngestionConfig:
             self.test_file_path = os.path.join(self.data_ingestion_dir,"dataset",RELIANCE_TEST_FILE_NAME)
             self.test_file_path = os.path.join(self.data_ingestion_dir,"dataset",TATAMOTORS_TEST_FILE_NAME)
             self.test_file_path = os.path.join(self.data_ingestion_dir,"dataset",TCS_TEST_FILE_NAME)
+
             self.test_size = 0.2
+            
         except Exception  as e:
             raise InvestmentPredictionException(e,sys)        
 

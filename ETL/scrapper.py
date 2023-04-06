@@ -1,3 +1,4 @@
+import os
 import sys
 import time
 import pandas as pd
@@ -7,8 +8,8 @@ from bs4 import BeautifulSoup
 from investment_prediction.exception import InvestmentPredictionException
 from investment_prediction.logger import logging
 
-
-save_file_to_path = "D:/FSDS-iNeuron/10.Projects-DS/Investment_Prediction/raw_dataset/"
+save_file_to_path = os.path.join(os.getcwd(),"raw_dataset")
+# save_file_to_path = "D:/FSDS-iNeuron/10.Projects-DS/Investment_Prediction/raw_dataset/"
 start_date = '2016-03-19'
 end_date = '2023-03-19'
 driver_path = r"D:\FSDS-iNeuron\10.Projects-DS\Investment_Prediction\selenium\chromedriver.exe"
