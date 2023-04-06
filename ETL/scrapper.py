@@ -12,7 +12,7 @@ save_file_to_path = "D:/FSDS-iNeuron/10.Projects-DS/Investment_Prediction/raw_da
 start_date = '2016-03-19'
 end_date = '2023-03-19'
 driver_path = r"D:\FSDS-iNeuron\10.Projects-DS\Investment_Prediction\selenium\chromedriver.exe"
-company = 'tata-motors-ltd'
+company_list = ['britannia-industries', 'itc', 'reliance-industries', 'tata-motors-ltd', 'tata-consultancy-services']
 
 # britannia-industries --> Britannia Inductries
 # itc --> ITC
@@ -92,5 +92,5 @@ class Data_scraper:
         logging.info("Saving scrapped data to directory")
         dfs[0].to_csv(f'{save_file_to_path}{company}.csv')
 
-# example usage
-Data_scraper.scraper(company, start_date, end_date, driver_path)
+# Function call
+list(map(lambda company: Data_scraper.scraper(company, start_date, end_date, driver_path), company_list))

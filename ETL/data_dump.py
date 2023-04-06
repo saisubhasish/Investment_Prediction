@@ -38,8 +38,7 @@ class Data_Loading:
         collection_list = [COLLECTION_NAME_br, COLLECTION_NAME_itc, COLLECTION_NAME_rel, COLLECTION_NAME_tatam, COLLECTION_NAME_tcs]
 
         logging.info("Resetting index")
-        for df in df_list:
-            df.reset_index(drop=True,inplace=True)
+        list(map(lambda df: df.reset_index(drop=True,inplace=True), df_list))
 
         logging.info("Converting the 'Date' column datatype")
         for df in df_list:

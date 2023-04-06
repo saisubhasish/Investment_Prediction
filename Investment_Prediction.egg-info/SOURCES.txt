@@ -1,3 +1,4 @@
+README.md
 setup.py
 Investment_Prediction.egg-info/PKG-INFO
 Investment_Prediction.egg-info/SOURCES.txt
@@ -8,6 +9,7 @@ investment_prediction/__init__.py
 investment_prediction/config.py
 investment_prediction/exception.py
 investment_prediction/logger.py
+investment_prediction/predictor.py
 investment_prediction/utils.py
 investment_prediction/components/__init__.py
 investment_prediction/components/data_ingestion.py
@@ -17,4 +19,9 @@ investment_prediction/components/model_evaluation.py
 investment_prediction/components/model_pusher.py
 investment_prediction/components/model_trainer.py
 investment_prediction/entity/__init__.py
+investment_prediction/entity/artifact_entity.py
+investment_prediction/entity/config_entity.py
 investment_prediction/pipeline/__init__.py
+investment_prediction/pipeline/data_pipeline.py
+investment_prediction/pipeline/prediction_pipeline.py
+investment_prediction/pipeline/training_pipeline.py

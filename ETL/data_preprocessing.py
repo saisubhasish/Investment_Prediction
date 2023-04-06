@@ -13,9 +13,9 @@ rel = "D:/FSDS-iNeuron/10.Projects-DS/Investment_Prediction/raw_dataset/reliance
 tcs = "D:/FSDS-iNeuron/10.Projects-DS/Investment_Prediction/raw_dataset/tata-consultancy-services.csv"
 tatam = "D:/FSDS-iNeuron/10.Projects-DS/Investment_Prediction/raw_dataset/tata-motors-ltd.csv"
 
-class Preprocess:
+class Data_Wrangling:
     @staticmethod
-    def data_wrangling(br, itc, rel, tcs, tatam):
+    def data_cleaning(br, itc, rel, tcs, tatam):
         logging.info("Reading the raw data from directory")
         df_rel = pd.read_csv(rel)
         df_br = pd.read_csv(br)
@@ -67,4 +67,4 @@ class Preprocess:
         df_tcs.to_csv(f'{file_path}tata-consultancy-services.csv')
         df_tatam.to_csv(f'{file_path}tata-motors-ltd.csv')
 
-Preprocess.data_wrangling(br, itc, rel, tcs, tatam)
+Data_Wrangling.data_cleaning(br, itc, rel, tcs, tatam)
