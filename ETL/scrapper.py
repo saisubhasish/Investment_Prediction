@@ -17,6 +17,7 @@ class Data_scraper:
         We can create a function that takes start date and end date as input parameters and formats them as Unix timestamps. 
         We can then construct the URL with the formatted timestamps as query parameters.
         '''
+        logging.info(f"{'>>'*20} Web Scrapping {'<<'*20}")
         logging.info("Creating raw file path if not exists")
         if not os.path.exists(raw_file_path):
             os.makedirs(raw_file_path)

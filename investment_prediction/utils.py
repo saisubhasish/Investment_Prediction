@@ -1,5 +1,7 @@
+import os
 import sys
 import pandas as pd
+import numpy as np
 from investment_prediction.config import mongo_client
 from investment_prediction.logger import logging
 from investment_prediction.exception import InvestmentPredictionException
@@ -43,12 +45,16 @@ def convert_to_int(value):
     Returns:
         numeric: replaced
     """
-    if value.endswith('M'):
-        return int(float(value[:-1]) * 1000000)
-    elif value.endswith('K'):
-        return int(float(value[:-1]) * 1000)
-    else:
-        return int(value)
+    try:
+        if value.endswith('M'):
+            return int(float(value[:-1]) * 1000000)
+        elif value.endswith('K'):
+            return int(float(value[:-1]) * 1000)
+        else:
+            return int(value)
+    
+    except Exception as e:
+        raise InvestmentPredictionException(e, sys)
     
 def convert_value_to_numerical(df):
     """
@@ -62,6 +68,7 @@ def convert_value_to_numerical(df):
     try:
         values = df['Volume']
         df['Volume'] = df['Volume'].apply(convert_to_int)
+
     except Exception as e:
         raise InvestmentPredictionException(e, sys)
 
@@ -145,6 +152,7 @@ def get_collection_as_dataframe(database_name:str,collection_name:str)->pd.DataF
             df = df.drop("_id",axis=1)
         logging.info(f"Row and columns in df: {df.shape}")
         return df
+    
     except Exception as e:
         raise InvestmentPredictionException(e, sys)
 
@@ -158,8 +166,40 @@ def split_data(df, test_size):
     =========================================================
     returns train_set nad test_set
     """
-    X = X.values # Convert to NumPy array
-    split = int(len(X) * (1-test_size))
-    train_set = X[: split]
-    test_set = X[split:]
-    return train_set, test_set
+    try:
+        X = df.values # Convert to NumPy array
+        split = int(len(X) * (1-test_size))
+        train_set = X[: split]
+        test_set = X[split:]
+        return train_set, test_set
+    
+    except Exception as e:
+        raise InvestmentPredictionException(e, sys)
+
+def save_numpy_array_data(file_path: str, array: np.array):
+    """
+    Save numpy array data to file
+    file_path: str location of file to save
+    array: np.array data to save
+    """
+    try:
+        dir_path = os.path.dirname(file_path)
+        os.makedirs(dir_path, exist_ok=True)
+        with open(file_path, "wb") as file_obj:
+            np.save(file_obj, array)
+
+    except Exception as e:
+        raise InvestmentPredictionException(e, sys) from e
+
+def load_numpy_array_data(file_path: str) -> np.array:
+    """
+    load numpy array data from file
+    file_path: str location of file to load
+    return: np.array data loaded
+    """
+    try:
+        with open(file_path, "rb") as file_obj:
+            return np.load(file_obj)
+        
+    except Exception as e:
+        raise InvestmentPredictionException(e, sys) from e

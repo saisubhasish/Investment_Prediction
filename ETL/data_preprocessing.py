@@ -12,6 +12,8 @@ class Data_Wrangling:
     @staticmethod
     def data_cleaning(raw_file_path, preprocessed_file_path):
 
+        logging.info(f"{'>>'*20} Data Preprocessing {'<<'*20}")
+
         logging.info('Getting the list of file names from raw directory')
         file_list = os.listdir(raw_file_path)
 

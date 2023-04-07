@@ -11,6 +11,7 @@ from investment_prediction.exception import InvestmentPredictionException
 class Data_Loading:
     @staticmethod
     def dump(preprocessed_file_path, DATABASE_NAME, COLLECTION_NAME_br, COLLECTION_NAME_itc, COLLECTION_NAME_rel, COLLECTION_NAME_tatam, COLLECTION_NAME_tcs):
+        logging.info(f"{'>>'*20} Data Dump {'<<'*20}")
         logging.info('Getting the list of file names from pre-processed directory')
         file_list = os.listdir(preprocessed_file_path)
 
