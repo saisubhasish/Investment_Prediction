@@ -27,7 +27,7 @@ class Data_Wrangling:
         df_list = [df_br, df_itc, df_rel, df_tatam, df_tcs]
 
         logging.info("Defining stock name list")
-        symbol_list = ['BRITANNIA', 'ITC', 'RELIANCE', 'TATAMOTORS', 'TCS']
+        symbol_list = ['britannia', 'itc', 'reliance', 'tatamotors', 'tcs']
 
         logging.info("Adding 'Symbol' column to dataframe")
         try:

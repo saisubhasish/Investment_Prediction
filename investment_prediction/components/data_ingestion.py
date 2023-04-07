@@ -44,7 +44,7 @@ class DataIngestion:
             df_tcs:pd.DataFrame  = utils.get_collection_as_dataframe(
                 database_name=self.data_ingestion_config.database_name, 
                 collection_name=self.data_ingestion_config.collection_name_tcs)
-
+            print(df_br)
             logging.info("Save data in feature store")
 
             # Save data in feature store
