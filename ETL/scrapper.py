@@ -4,23 +4,22 @@ import time
 import pandas as pd
 from selenium import webdriver
 from bs4 import BeautifulSoup
-#from datetime import datetime
 from investment_prediction.exception import InvestmentPredictionException
 from investment_prediction.logger import logging
-from investment_prediction.config import start_date, end_date, driver_path, company_list, save_file_to_path
+from investment_prediction.config import start_date, end_date, driver_path, company_list, raw_file_path
 
 
 class Data_scraper:
     @staticmethod
-    def scraper(company, start_date, end_date, driver_path, save_file_to_path):
+    def scraper(company, start_date, end_date, driver_path, raw_file_path):
         '''
         To automate the process of changing start date and end date in the code, 
         We can create a function that takes start date and end date as input parameters and formats them as Unix timestamps. 
         We can then construct the URL with the formatted timestamps as query parameters.
         '''
         logging.info("Creating path if not exists")
-        if not os.path.exists(save_file_to_path):
-            os.makedirs(save_file_to_path)
+        if not os.path.exists(raw_file_path):
+            os.makedirs(raw_file_path)
 
         logging.info("Step 1: Create a session and load the page")
         logging.info("Preparing time-stamp for start and end interval")
@@ -84,8 +83,7 @@ class Data_scraper:
         driver.close()
 
         logging.info("Saving scrapped data to directory")
-        #dfs[0].to_csv(f'{save_file_to_path}{company}.csv')
-        dfs[0].to_csv(os.path.join(save_file_to_path, f"{company}.csv"))
+        dfs[0].to_csv(os.path.join(raw_file_path, f"{company}.csv"))
 
 # Function call
-list(map(lambda company: Data_scraper.scraper(company, start_date, end_date, driver_path, save_file_to_path), company_list))
+list(map(lambda company: Data_scraper.scraper(company, start_date, end_date, driver_path, raw_file_path), company_list))
