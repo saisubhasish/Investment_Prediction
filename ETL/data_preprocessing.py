@@ -7,20 +7,23 @@ from investment_prediction.exception import InvestmentPredictionException
 from investment_prediction.logger import logging
 from investment_prediction.config import raw_file_path, preprocessed_file_path
 
-logging.info('Getting the list of file names from raw directory')
-file_list = os.listdir(raw_file_path)
-
-logging.info(f'File list: {file_list}')
-
-br = f"{os.getcwd()}\\raw_dataset\\{file_list[0]}"
-itc = f"{os.getcwd()}\\raw_dataset\\{file_list[1]}"
-rel = f"{os.getcwd()}\\raw_dataset\\{file_list[2]}"
-tcs = f"{os.getcwd()}\\raw_dataset\\{file_list[3]}"
-tatam = f"{os.getcwd()}\\raw_dataset\\{file_list[4]}"
 
 class Data_Wrangling:
     @staticmethod
-    def data_cleaning(br, itc, rel, tcs, tatam, preprocessed_file_path):
+    def data_cleaning(raw_file_path, preprocessed_file_path):
+
+        logging.info('Getting the list of file names from raw directory')
+        file_list = os.listdir(raw_file_path)
+
+        logging.info(f'File list: {file_list}')
+
+        logging.info('Getting the path to read each raw file')
+        br = f"{os.getcwd()}\\raw_dataset\\{file_list[0]}"
+        itc = f"{os.getcwd()}\\raw_dataset\\{file_list[1]}"
+        rel = f"{os.getcwd()}\\raw_dataset\\{file_list[2]}"
+        tcs = f"{os.getcwd()}\\raw_dataset\\{file_list[3]}"
+        tatam = f"{os.getcwd()}\\raw_dataset\\{file_list[4]}"
+
         logging.info("Reading the raw data from directory")
         df_br = pd.read_csv(br)
         df_rel = pd.read_csv(rel)
@@ -81,4 +84,4 @@ class Data_Wrangling:
         df_tcs.to_csv(preprocessed_file_path+'/tata-consultancy-services.csv')
         df_tatam.to_csv(preprocessed_file_path+'/tata-motors-ltd.csv')
 
-Data_Wrangling.data_cleaning(br, itc, rel, tcs, tatam, preprocessed_file_path)
+Data_Wrangling.data_cleaning(raw_file_path, preprocessed_file_path)

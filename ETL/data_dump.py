@@ -1,28 +1,27 @@
+import os
 import json
 import pymongo
 import pandas as pd
 from investment_prediction.config import mongo_client
 from investment_prediction.logger import logging
-
-
-DATA_FILE_PATH_br = 'D:/FSDS-iNeuron/10.Projects-DS/Investment_Prediction/pre_processed_dataset/britannia-industries.csv'
-DATA_FILE_PATH_itc = 'D:/FSDS-iNeuron/10.Projects-DS/Investment_Prediction/pre_processed_dataset/itc.csv'
-DATA_FILE_PATH_rel = 'D:/FSDS-iNeuron/10.Projects-DS/Investment_Prediction/pre_processed_dataset/reliance-industries.csv'
-DATA_FILE_PATH_tatam = 'D:/FSDS-iNeuron/10.Projects-DS/Investment_Prediction/pre_processed_dataset/tata-motors-ltd.csv'
-DATA_FILE_PATH_tcs = 'D:/FSDS-iNeuron/10.Projects-DS/Investment_Prediction/pre_processed_dataset/tata-consultancy-services.csv'
-
-DATABASE_NAME="TimeSeries"
-
-COLLECTION_NAME_br="BRITANNIA"
-COLLECTION_NAME_itc = 'ITC'
-COLLECTION_NAME_rel = 'RELIANCE'
-COLLECTION_NAME_tatam = 'TATAMOTORS'
-COLLECTION_NAME_tcs = 'TCS'
+from investment_prediction.config import preprocessed_file_path, DATABASE_NAME, COLLECTION_NAME_br, COLLECTION_NAME_itc, COLLECTION_NAME_rel, COLLECTION_NAME_tatam, COLLECTION_NAME_tcs
 
 
 class Data_Loading:
     @staticmethod
-    def dump(DATABASE_NAME):
+    def dump(preprocessed_file_path, DATABASE_NAME, COLLECTION_NAME_br, COLLECTION_NAME_itc, COLLECTION_NAME_rel, COLLECTION_NAME_tatam, COLLECTION_NAME_tcs):
+        logging.info('Getting the list of file names from pre-processed directory')
+        file_list = os.listdir(preprocessed_file_path)
+
+        logging.info(f'File list: {file_list}')
+
+        DATA_FILE_PATH_br = f"{os.getcwd()}\\pre_processed_dataset\\{file_list[0]}"
+        DATA_FILE_PATH_itc = f"{os.getcwd()}\\pre_processed_dataset\\{file_list[1]}"
+        DATA_FILE_PATH_rel = f"{os.getcwd()}\\pre_processed_dataset\\{file_list[2]}"
+        DATA_FILE_PATH_tcs = f"{os.getcwd()}\\pre_processed_dataset\\{file_list[3]}"
+        DATA_FILE_PATH_tatam = f"{os.getcwd()}\\pre_processed_dataset\\{file_list[4]}"
+
+        logging.info('Reading pre-processed data to store in database')
         df_br = pd.read_csv(DATA_FILE_PATH_br)
         df_itc = pd.read_csv(DATA_FILE_PATH_itc)
         df_rel = pd.read_csv(DATA_FILE_PATH_rel)
@@ -64,4 +63,4 @@ class Data_Loading:
             i+=1
 
     # Function call
-Data_Loading.dump(DATABASE_NAME)
+Data_Loading.dump(preprocessed_file_path, DATABASE_NAME, COLLECTION_NAME_br, COLLECTION_NAME_itc, COLLECTION_NAME_rel, COLLECTION_NAME_tatam, COLLECTION_NAME_tcs)
