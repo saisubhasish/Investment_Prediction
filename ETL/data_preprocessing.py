@@ -5,7 +5,7 @@ import numpy as np
 from investment_prediction import utils
 from investment_prediction.exception import InvestmentPredictionException
 from investment_prediction.logger import logging
-from investment_prediction.config import raw_file_path, preprocessed_file_path
+
 
 
 class Data_Wrangling:
@@ -84,4 +84,4 @@ class Data_Wrangling:
         df_tcs.to_csv(preprocessed_file_path+'/tata-consultancy-services.csv')
         df_tatam.to_csv(preprocessed_file_path+'/tata-motors-ltd.csv')
 
-Data_Wrangling.data_cleaning(raw_file_path, preprocessed_file_path)
+

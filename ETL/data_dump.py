@@ -6,7 +6,6 @@ import pandas as pd
 from investment_prediction.config import mongo_client
 from investment_prediction.logger import logging
 from investment_prediction.exception import InvestmentPredictionException
-from investment_prediction.config import preprocessed_file_path, DATABASE_NAME, COLLECTION_NAME_br, COLLECTION_NAME_itc, COLLECTION_NAME_rel, COLLECTION_NAME_tatam, COLLECTION_NAME_tcs
 
 
 class Data_Loading:
@@ -72,5 +71,4 @@ class Data_Loading:
         except Exception as e:
             raise InvestmentPredictionException(e, sys)
 
-    # Function call
-Data_Loading.dump(preprocessed_file_path, DATABASE_NAME, COLLECTION_NAME_br, COLLECTION_NAME_itc, COLLECTION_NAME_rel, COLLECTION_NAME_tatam, COLLECTION_NAME_tcs)
+ 

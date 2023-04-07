@@ -6,7 +6,7 @@ from selenium import webdriver
 from bs4 import BeautifulSoup
 from investment_prediction.exception import InvestmentPredictionException
 from investment_prediction.logger import logging
-from investment_prediction.config import start_date, end_date, driver_path, company_list, raw_file_path
+
 
 
 class Data_scraper:
@@ -85,5 +85,4 @@ class Data_scraper:
         logging.info(f"Saving scrapped data to: {raw_file_path}")
         dfs[0].to_csv(os.path.join(raw_file_path, f"{company}.csv"))
 
-# Function call
-list(map(lambda company: Data_scraper.scraper(company, start_date, end_date, driver_path, raw_file_path), company_list))
+

@@ -5,9 +5,6 @@ from dataclasses import dataclass
 import os
 
 
-start_date = '2016-03-19'
-end_date = '2023-03-19'
-driver_path = r"D:\FSDS-iNeuron\10.Projects-DS\Investment_Prediction\selenium\chromedriver.exe"
 raw_file_path = os.path.join(os.getcwd(),"raw_dataset")
 preprocessed_file_path = os.path.join(os.getcwd(),"pre_processed_dataset")
 
