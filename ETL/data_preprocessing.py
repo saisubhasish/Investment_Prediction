@@ -1,25 +1,29 @@
+import os
 import sys
 import pandas as pd
 import numpy as np
 from investment_prediction import utils
 from investment_prediction.exception import InvestmentPredictionException
 from investment_prediction.logger import logging
-from investment_prediction.config import raw_file_path
+from investment_prediction.config import raw_file_path, preprocessed_file_path
 
-file_path = "D:/FSDS-iNeuron/10.Projects-DS/Investment_Prediction/pre_processed_dataset/"
+logging.info('Getting the list of file names from raw directory')
+file_list = os.listdir(raw_file_path)
 
-br = "D:/FSDS-iNeuron/10.Projects-DS/Investment_Prediction/raw_dataset/britannia-industries.csv"
-itc = "D:/FSDS-iNeuron/10.Projects-DS/Investment_Prediction/raw_dataset/itc.csv"
-rel = "D:/FSDS-iNeuron/10.Projects-DS/Investment_Prediction/raw_dataset/reliance-industries.csv"
-tcs = "D:/FSDS-iNeuron/10.Projects-DS/Investment_Prediction/raw_dataset/tata-consultancy-services.csv"
-tatam = "D:/FSDS-iNeuron/10.Projects-DS/Investment_Prediction/raw_dataset/tata-motors-ltd.csv"
+logging.info(f'File list: {file_list}')
+
+br = f"{os.getcwd()}\\raw_dataset\\{file_list[0]}"
+itc = f"{os.getcwd()}\\raw_dataset\\{file_list[1]}"
+rel = f"{os.getcwd()}\\raw_dataset\\{file_list[2]}"
+tcs = f"{os.getcwd()}\\raw_dataset\\{file_list[3]}"
+tatam = f"{os.getcwd()}\\raw_dataset\\{file_list[4]}"
 
 class Data_Wrangling:
     @staticmethod
-    def data_cleaning(br, itc, rel, tcs, tatam):
+    def data_cleaning(br, itc, rel, tcs, tatam, preprocessed_file_path):
         logging.info("Reading the raw data from directory")
-        df_rel = pd.read_csv(rel)
         df_br = pd.read_csv(br)
+        df_rel = pd.read_csv(rel)
         df_itc = pd.read_csv(itc)
         df_tatam = pd.read_csv(tatam)
         df_tcs = pd.read_csv(tcs)
@@ -60,17 +64,21 @@ class Data_Wrangling:
             logging.info("Setting 'Date' as index")
             list(map(utils.set_index_as_Date, df_list))
 
+            logging.info("Creating pre-processed file path if not exists")
+            if not os.path.exists(preprocessed_file_path):
+                os.makedirs(preprocessed_file_path)
+
         except Exception as e:
             raise InvestmentPredictionException(e, sys)
 
         print(df_itc)
             
-        logging.info(f"Saving the processed data to : {file_path}")
+        logging.info(f"Saving the processed data to : {preprocessed_file_path}")
 
-        df_br.to_csv(f'{file_path}britannia-industries.csv')
-        df_itc.to_csv(f'{file_path}itc.csv')
-        df_rel.to_csv(f'{file_path}reliance-industries.csv')
-        df_tcs.to_csv(f'{file_path}tata-consultancy-services.csv')
-        df_tatam.to_csv(f'{file_path}tata-motors-ltd.csv')
+        df_br.to_csv(preprocessed_file_path+'/britannia-industries.csv')
+        df_itc.to_csv(preprocessed_file_path+'/itc.csv')
+        df_rel.to_csv(preprocessed_file_path+'/reliance-industries.csv')
+        df_tcs.to_csv(preprocessed_file_path+'/tata-consultancy-services.csv')
+        df_tatam.to_csv(preprocessed_file_path+'/tata-motors-ltd.csv')
 
-Data_Wrangling.data_cleaning(br, itc, rel, tcs, tatam)
+Data_Wrangling.data_cleaning(br, itc, rel, tcs, tatam, preprocessed_file_path)

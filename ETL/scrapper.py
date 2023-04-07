@@ -17,7 +17,7 @@ class Data_scraper:
         We can create a function that takes start date and end date as input parameters and formats them as Unix timestamps. 
         We can then construct the URL with the formatted timestamps as query parameters.
         '''
-        logging.info("Creating path if not exists")
+        logging.info("Creating raw file path if not exists")
         if not os.path.exists(raw_file_path):
             os.makedirs(raw_file_path)
 
@@ -82,7 +82,7 @@ class Data_scraper:
 
         driver.close()
 
-        logging.info("Saving scrapped data to directory")
+        logging.info(f"Saving scrapped data to: {raw_file_path}")
         dfs[0].to_csv(os.path.join(raw_file_path, f"{company}.csv"))
 
 # Function call

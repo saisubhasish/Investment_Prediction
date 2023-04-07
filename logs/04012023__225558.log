@@ -1,8 +1,0 @@
-[ 2023-04-01 22:55:59,041 ] 33 root - INFO - Preparing list of dataframes
-[ 2023-04-01 22:55:59,042 ] 36 root - INFO - Preparing list of collections
-[ 2023-04-01 22:55:59,042 ] 39 root - INFO - Resetting index
-[ 2023-04-01 22:55:59,042 ] 43 root - INFO - Converting the 'Date' column datatype
-[ 2023-04-01 22:55:59,056 ] 47 root - INFO - Convert dataframe to json so that we can dump these record in mongo db
-[ 2023-04-01 22:55:59,056 ] 48 root - INFO - Each record will represent one row
-[ 2023-04-01 22:55:59,144 ] 55 root - INFO - Preparing list of json records
-[ 2023-04-01 22:55:59,145 ] 60 root - INFO - insert converted json record to mongo db
