@@ -4,6 +4,7 @@ import numpy as np
 from investment_prediction import utils
 from investment_prediction.exception import InvestmentPredictionException
 from investment_prediction.logger import logging
+from investment_prediction.config import raw_file_path
 
 file_path = "D:/FSDS-iNeuron/10.Projects-DS/Investment_Prediction/pre_processed_dataset/"
 
@@ -20,8 +21,8 @@ class Data_Wrangling:
         df_rel = pd.read_csv(rel)
         df_br = pd.read_csv(br)
         df_itc = pd.read_csv(itc)
-        df_tcs = pd.read_csv(tcs)
         df_tatam = pd.read_csv(tatam)
+        df_tcs = pd.read_csv(tcs)
 
         logging.info("Preparing list of dataframes")
         df_list = [df_br, df_itc, df_rel, df_tatam, df_tcs]
@@ -31,7 +32,12 @@ class Data_Wrangling:
 
         logging.info("Adding 'Symbol' column to dataframe")
         try:
-            utils.add_symbol(df_list, symbol_list)
+            #utils.add_symbol(df_list, symbol_list)
+            df_br['Symbol'] = 'britannia'
+            df_itc['Symbol'] = 'itc'
+            df_rel['Symbol'] = 'rel'
+            df_tatam['Symbol'] = 'tatamotors'
+            df_tcs['Symbol'] = 'tcs'
         except Exception as e:
             raise InvestmentPredictionException(e, sys)
 
