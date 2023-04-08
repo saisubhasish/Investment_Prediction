@@ -9,17 +9,17 @@ RELIANCE_FILE_NAME = "reliance.csv"
 TATAMOTORS_FILE_NAME = "tatamotors.csv"
 TCS_FILE_NAME = "tcs.csv"
 
-BRITANNIA_TRAIN_FILE_NAME = "britannia_train.csv"
-ITC_TRAIN_FILE_NAME = "itc_train.csv"
-RELIANCE_TRAIN_FILE_NAME = "reliance_train.csv"
-TATAMOTORS_TRAIN_FILE_NAME = "tatamotors_train.csv"
-TCS_TRAIN_FILE_NAME = "tcs_train.csv"
+BRITANNIA_TRAIN_FILE_NAME = "britannia_train.npz"
+ITC_TRAIN_FILE_NAME = "itc_train.npz"
+RELIANCE_TRAIN_FILE_NAME = "reliance_train.npz"
+TATAMOTORS_TRAIN_FILE_NAME = "tatamotors_train.npz"
+TCS_TRAIN_FILE_NAME = "tcs_train.npz"
 
-BRITANNIA_TEST_FILE_NAME = "britannia_test.csv"
-ITC_TEST_FILE_NAME = "itc_test.csv"
-RELIANCE_TEST_FILE_NAME = "reliance_test.csv"
-TATAMOTORS_TEST_FILE_NAME = "tatamotors_test.csv"
-TCS_TEST_FILE_NAME = "tcs_test.csv"
+BRITANNIA_TEST_FILE_NAME = "britannia_test.npz"
+ITC_TEST_FILE_NAME = "itc_test.npz"
+RELIANCE_TEST_FILE_NAME = "reliance_test.npz"
+TATAMOTORS_TEST_FILE_NAME = "tatamotors_test.npz"
+TCS_TEST_FILE_NAME = "tcs_test.npz"
 
 
 TRANSFORMER_OBJECT_FILE_NAME = "transformer.pkl"
@@ -78,26 +78,29 @@ class DataValidationConfig:
     def __init__(self,training_pipeline_config:TrainingPipelineConfig):
         try:
             self.data_validation_dir = os.path.join(training_pipeline_config.artifact_dir , "data_validation")
-            self.report_file_path=os.path.join(self.data_validation_dir, "report.yaml")
+
             self.base_file_path_br = os.path.join("britannia.csv")
             self.base_file_path_itc = os.path.join("itc.csv")
             self.base_file_path_rel = os.path.join("reliance.csv")
             self.base_file_path_tatam = os.path.join("tatamotors.csv")
             self.base_file_path_tcs = os.path.join("tcs.csv")
 
-            self.train_file_path_br = os.path.join(self.data_ingestion_dir,"dataset",BRITANNIA_TRAIN_FILE_NAME)
-            self.train_file_path_itc = os.path.join(self.data_ingestion_dir,"dataset",ITC_TRAIN_FILE_NAME)
-            self.train_file_path_rel = os.path.join(self.data_ingestion_dir,"dataset",RELIANCE_TRAIN_FILE_NAME)
-            self.train_file_path_tatam = os.path.join(self.data_ingestion_dir,"dataset",TATAMOTORS_TRAIN_FILE_NAME)
-            self.train_file_path_tcs = os.path.join(self.data_ingestion_dir,"dataset",TCS_TRAIN_FILE_NAME)
+            self.dataset_dir = os.path.join(self.data_validation_dir,"dataset")
+            
+            self.train_file_path_br = os.path.join(self.dataset_dir,"Dataset_1",BRITANNIA_TRAIN_FILE_NAME)
+            self.train_file_path_itc = os.path.join(self.dataset_dir,"Dataset_2",ITC_TRAIN_FILE_NAME)
+            self.train_file_path_rel = os.path.join(self.dataset_dir,"Dataset_3",RELIANCE_TRAIN_FILE_NAME)
+            self.train_file_path_tatam = os.path.join(self.dataset_dir,"Dataset_4",TATAMOTORS_TRAIN_FILE_NAME)
+            self.train_file_path_tcs = os.path.join(self.dataset_dir,"Dataset_5",TCS_TRAIN_FILE_NAME)
 
-            self.test_file_path_br = os.path.join(self.data_ingestion_dir,"dataset",BRITANNIA_TEST_FILE_NAME)
-            self.test_file_path_itc = os.path.join(self.data_ingestion_dir,"dataset",ITC_TEST_FILE_NAME)
-            self.test_file_path_rel = os.path.join(self.data_ingestion_dir,"dataset",RELIANCE_TEST_FILE_NAME)
-            self.test_file_path_tatam = os.path.join(self.data_ingestion_dir,"dataset",TATAMOTORS_TEST_FILE_NAME)
-            self.test_file_path_tcs = os.path.join(self.data_ingestion_dir,"dataset",TCS_TEST_FILE_NAME)
+            self.test_file_path_br = os.path.join(self.dataset_dir,"Dataset_1",BRITANNIA_TEST_FILE_NAME)
+            self.test_file_path_itc = os.path.join(self.dataset_dir,"Dataset_2",ITC_TEST_FILE_NAME)
+            self.test_file_path_rel = os.path.join(self.dataset_dir,"Dataset_3",RELIANCE_TEST_FILE_NAME)
+            self.test_file_path_tatam = os.path.join(self.dataset_dir,"Dataset_4",TATAMOTORS_TEST_FILE_NAME)
+            self.test_file_path_tcs = os.path.join(self.dataset_dir,"Dataset_5",TCS_TEST_FILE_NAME)
 
             self.test_size = 0.2
-
+            self.report_file_path=os.path.join(self.data_validation_dir, "report.yaml")
+            
         except Exception  as e:
             raise InvestmentPredictionException(e,sys)  

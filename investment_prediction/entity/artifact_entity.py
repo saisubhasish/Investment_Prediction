@@ -11,6 +11,14 @@ class DataIngestionArtifact:
 
 @dataclass
 class DataValidationArtifact:
-    train_file_path:str 
-    test_file_path:str
     report_file_path:str
+    train_file_path_br:str
+    train_file_path_itc:str
+    train_file_path_rel:str
+    train_file_path_tatam:str
+    train_file_path_tcs:str
+    test_file_path_br:str
+    test_file_path_itc:str
+    test_file_path_rel:str
+    test_file_path_tatam:str
+    test_file_path_tcs:str

@@ -73,7 +73,7 @@ class DataIngestion:
             df_tatam.to_csv(path_or_buf=self.data_ingestion_config.dataset4_file_path, index=False, header=True)
             df_tcs.to_csv(path_or_buf=self.data_ingestion_config.dataset5_file_path, index=False, header=True)
             
-            # Prepare artifact  
+            logging.info("Preparing data ingestion artifacts") 
             data_ingestion_artifact = artifact_entity.DataIngestionArtifact(
                 dataset1_file_path=self.data_ingestion_config.dataset1_file_path,
                 dataset2_file_path=self.data_ingestion_config.dataset2_file_path,

@@ -2,6 +2,7 @@ import os
 import sys
 import pandas as pd
 import numpy as np
+import yaml
 from investment_prediction.config import mongo_client
 from investment_prediction.logger import logging
 from investment_prediction.exception import InvestmentPredictionException
@@ -203,3 +204,15 @@ def load_numpy_array_data(file_path: str) -> np.array:
         
     except Exception as e:
         raise InvestmentPredictionException(e, sys) from e
+    
+def write_yaml_file(file_path,data:dict):
+    """
+    Creating yaml report for validation status of each column
+    """
+    try:
+        file_dir = os.path.dirname(file_path)
+        os.makedirs(file_dir,exist_ok=True)
+        with open(file_path,"w") as file_writer:
+            yaml.dump(data,file_writer)
+    except Exception as e:
+        raise InvestmentPredictionException(e, sys)
