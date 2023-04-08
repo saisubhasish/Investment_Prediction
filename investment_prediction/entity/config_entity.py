@@ -10,14 +10,15 @@ TATAMOTORS_FILE_NAME = "tatamotors.csv"
 TCS_FILE_NAME = "tcs.csv"
 
 BRITANNIA_TRAIN_FILE_NAME = "britannia_train.csv"
-BRITANNIA_TEST_FILE_NAME = "britannia_test.csv"
 ITC_TRAIN_FILE_NAME = "itc_train.csv"
-ITC_TEST_FILE_NAME = "itc_test.csv"
 RELIANCE_TRAIN_FILE_NAME = "reliance_train.csv"
-RELIANCE_TEST_FILE_NAME = "reliance_test.csv"
 TATAMOTORS_TRAIN_FILE_NAME = "tatamotors_train.csv"
-TATAMOTORS_TEST_FILE_NAME = "tatamotors_test.csv"
 TCS_TRAIN_FILE_NAME = "tcs_train.csv"
+
+BRITANNIA_TEST_FILE_NAME = "britannia_test.csv"
+ITC_TEST_FILE_NAME = "itc_test.csv"
+RELIANCE_TEST_FILE_NAME = "reliance_test.csv"
+TATAMOTORS_TEST_FILE_NAME = "tatamotors_test.csv"
 TCS_TEST_FILE_NAME = "tcs_test.csv"
 
 
@@ -39,33 +40,25 @@ class DataIngestionConfig:
         try:
             self.database_name="TimeSeries"
 
-            self.collection_name_br="BRITANNIA"
-            self.collection_name_itc="ITC"
-            self.collection_name_rel="RELIANCE"
-            self.collection_name_tatam="TATAMOTORS"
-            self.collection_name_tcs="TCS"
+            self.collection_name_br="britannia"
+            self.collection_name_itc="itc"
+            self.collection_name_rel="reliance"
+            self.collection_name_tatam="tatamotors"
+            self.collection_name_tcs="tcs"
 
             self.data_ingestion_dir = os.path.join(training_pipeline_config.artifact_dir , "data_ingestion")
 
-            self.feature_store_file_path_br = os.path.join(self.data_ingestion_dir,"feature_store",BRITANNIA_FILE_NAME)
-            self.feature_store_file_path_itc = os.path.join(self.data_ingestion_dir,"feature_store",ITC_FILE_NAME)
-            self.feature_store_file_path_rel = os.path.join(self.data_ingestion_dir,"feature_store",RELIANCE_FILE_NAME)
-            self.feature_store_file_path_tatam = os.path.join(self.data_ingestion_dir,"feature_store",TATAMOTORS_FILE_NAME)
-            self.feature_store_file_path_tcs = os.path.join(self.data_ingestion_dir,"feature_store",TCS_FILE_NAME)
+            self.feature_store_file_path_br = os.path.join(self.data_ingestion_dir,"feature_store")
+            self.feature_store_file_path_itc = os.path.join(self.data_ingestion_dir,"feature_store")
+            self.feature_store_file_path_rel = os.path.join(self.data_ingestion_dir,"feature_store")
+            self.feature_store_file_path_tatam = os.path.join(self.data_ingestion_dir,"feature_store")
+            self.feature_store_file_path_tcs = os.path.join(self.data_ingestion_dir,"feature_store")
 
-            self.train_file_path_br = os.path.join(self.data_ingestion_dir,"dataset",BRITANNIA_TRAIN_FILE_NAME)
-            self.train_file_path_itc = os.path.join(self.data_ingestion_dir,"dataset",ITC_TRAIN_FILE_NAME)
-            self.train_file_path_rel = os.path.join(self.data_ingestion_dir,"dataset",RELIANCE_TRAIN_FILE_NAME)
-            self.train_file_path_tatam = os.path.join(self.data_ingestion_dir,"dataset",TATAMOTORS_TRAIN_FILE_NAME)
-            self.train_file_path_tcs = os.path.join(self.data_ingestion_dir,"dataset",TCS_TRAIN_FILE_NAME)
-
-            self.test_file_path_br = os.path.join(self.data_ingestion_dir,"dataset",BRITANNIA_TEST_FILE_NAME)
-            self.test_file_path_itc = os.path.join(self.data_ingestion_dir,"dataset",ITC_TEST_FILE_NAME)
-            self.test_file_path_rel = os.path.join(self.data_ingestion_dir,"dataset",RELIANCE_TEST_FILE_NAME)
-            self.test_file_path_tatam = os.path.join(self.data_ingestion_dir,"dataset",TATAMOTORS_TEST_FILE_NAME)
-            self.test_file_path_tcs = os.path.join(self.data_ingestion_dir,"dataset",TCS_TEST_FILE_NAME)
-
-            self.test_size = 0.2
+            self.dataset1_file_path = os.path.join(self.feature_store_file_path_br,"Dataset_1",BRITANNIA_FILE_NAME)
+            self.dataset2_file_path = os.path.join(self.feature_store_file_path_itc,"Dataset_2",ITC_FILE_NAME)
+            self.dataset3_file_path = os.path.join(self.feature_store_file_path_rel,"Dataset_3",RELIANCE_FILE_NAME)
+            self.dataset4_file_path = os.path.join(self.feature_store_file_path_tatam,"Dataset_4",TATAMOTORS_FILE_NAME)
+            self.dataset5_file_path = os.path.join(self.feature_store_file_path_tcs,"Dataset_5",TCS_FILE_NAME)
             
         except Exception  as e:
             raise InvestmentPredictionException(e,sys)        
@@ -86,8 +79,25 @@ class DataValidationConfig:
         try:
             self.data_validation_dir = os.path.join(training_pipeline_config.artifact_dir , "data_validation")
             self.report_file_path=os.path.join(self.data_validation_dir, "report.yaml")
-            self.missing_threshold:float = 0.2
-            self.base_file_path = os.path.join("aps_failure_training_set1.csv")
+            self.base_file_path_br = os.path.join("britannia.csv")
+            self.base_file_path_itc = os.path.join("itc.csv")
+            self.base_file_path_rel = os.path.join("reliance.csv")
+            self.base_file_path_tatam = os.path.join("tatamotors.csv")
+            self.base_file_path_tcs = os.path.join("tcs.csv")
+
+            self.train_file_path_br = os.path.join(self.data_ingestion_dir,"dataset",BRITANNIA_TRAIN_FILE_NAME)
+            self.train_file_path_itc = os.path.join(self.data_ingestion_dir,"dataset",ITC_TRAIN_FILE_NAME)
+            self.train_file_path_rel = os.path.join(self.data_ingestion_dir,"dataset",RELIANCE_TRAIN_FILE_NAME)
+            self.train_file_path_tatam = os.path.join(self.data_ingestion_dir,"dataset",TATAMOTORS_TRAIN_FILE_NAME)
+            self.train_file_path_tcs = os.path.join(self.data_ingestion_dir,"dataset",TCS_TRAIN_FILE_NAME)
+
+            self.test_file_path_br = os.path.join(self.data_ingestion_dir,"dataset",BRITANNIA_TEST_FILE_NAME)
+            self.test_file_path_itc = os.path.join(self.data_ingestion_dir,"dataset",ITC_TEST_FILE_NAME)
+            self.test_file_path_rel = os.path.join(self.data_ingestion_dir,"dataset",RELIANCE_TEST_FILE_NAME)
+            self.test_file_path_tatam = os.path.join(self.data_ingestion_dir,"dataset",TATAMOTORS_TEST_FILE_NAME)
+            self.test_file_path_tcs = os.path.join(self.data_ingestion_dir,"dataset",TCS_TEST_FILE_NAME)
+
+            self.test_size = 0.2
 
         except Exception  as e:
             raise InvestmentPredictionException(e,sys)  
