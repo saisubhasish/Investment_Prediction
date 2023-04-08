@@ -76,7 +76,11 @@ class Data_Wrangling:
         except Exception as e:
             raise InvestmentPredictionException(e, sys)
 
+        print(df_br)
         print(df_itc)
+        print(df_rel)
+        print(df_tcs)
+        print(df_tatam)
             
         logging.info(f"Saving the processed data to : {preprocessed_file_path}")
 

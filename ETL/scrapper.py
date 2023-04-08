@@ -22,6 +22,7 @@ class Data_scraper:
         if not os.path.exists(raw_file_path):
             os.makedirs(raw_file_path)
 
+        logging.info(f"Scrapping for {company} company data")
         logging.info("Step 1: Create a session and load the page")
         logging.info("Preparing time-stamp for start and end interval")
         start_timestamp = int(time.mktime(time.strptime(start_date, '%Y-%m-%d')))

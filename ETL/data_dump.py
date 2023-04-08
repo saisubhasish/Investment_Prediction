@@ -50,10 +50,15 @@ class Data_Loading:
             logging.info("Convert dataframe to json type(dict) so that we can dump these record in mongo db")
             logging.info("Each record will represent one row")
             json_record_br = df_br.to_dict('records')
+            print(json_record_br)
             json_record_itc = df_itc.to_dict('records')
+            print(json_record_itc)
             json_record_rel = df_rel.to_dict('records')
+            print(json_record_rel)
             json_record_tatam = df_tatam.to_dict('records')
+            print(json_record_tatam)
             json_record_tcs = df_tcs.to_dict('records')
+            print(json_record_tcs)
 
         except Exception as e:
             raise InvestmentPredictionException(e, sys)
@@ -69,6 +74,7 @@ class Data_Loading:
             for collection in collection_list:
                 mongo_client[DATABASE_NAME][collection].insert_many(json_record_list[i])
                 i+=1
+                print(f'Record inserted successfully in collection: {collection}')
         except Exception as e:
             raise InvestmentPredictionException(e, sys)
 

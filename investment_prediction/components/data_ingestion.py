@@ -30,19 +30,28 @@ class DataIngestion:
             df_br:pd.DataFrame  = utils.get_collection_as_dataframe(
                 database_name=self.data_ingestion_config.database_name, 
                 collection_name=self.data_ingestion_config.collection_name_br)
+            print(df_br)
+
             df_itc:pd.DataFrame  = utils.get_collection_as_dataframe(
                 database_name=self.data_ingestion_config.database_name, 
                 collection_name=self.data_ingestion_config.collection_name_itc)
+            print(df_itc)
+
             df_rel:pd.DataFrame  = utils.get_collection_as_dataframe(
                 database_name=self.data_ingestion_config.database_name, 
                 collection_name=self.data_ingestion_config.collection_name_rel)
+            print(df_rel)
+
             df_tatam:pd.DataFrame  = utils.get_collection_as_dataframe(
                 database_name=self.data_ingestion_config.database_name, 
                 collection_name=self.data_ingestion_config.collection_name_tatam)
+            print(df_tatam)
+            
             df_tcs:pd.DataFrame  = utils.get_collection_as_dataframe(
                 database_name=self.data_ingestion_config.database_name, 
                 collection_name=self.data_ingestion_config.collection_name_tcs)
-            print(df_br)
+            print(df_tcs)
+            
 
             logging.info("Save data in feature store")
             logging.info("Create feature store folder if not available")

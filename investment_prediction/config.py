@@ -17,7 +17,7 @@ company_list = ['britannia-industries', 'itc', 'reliance-industries', 'tata-moto
 
 DATABASE_NAME="TimeSeries"
 
-COLLECTION_NAME_br="britannia"
+COLLECTION_NAME_br ="britannia"
 COLLECTION_NAME_itc = 'itc'
 COLLECTION_NAME_rel = 'reliance'
 COLLECTION_NAME_tatam = 'tatamotors'
