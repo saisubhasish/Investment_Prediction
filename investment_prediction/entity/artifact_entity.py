@@ -8,10 +8,12 @@ class DataIngestionArtifact:
     dataset4_file_path:str
     dataset5_file_path:str
     
-
 @dataclass
 class DataValidationArtifact:
     report_file_path:str
+    combined_file_path:str
+    combined_train_file_path:str
+    combined_test_file_path:str
     train_file_path_br:str
     train_file_path_itc:str
     train_file_path_rel:str

@@ -147,7 +147,11 @@ class DataValidation:
             logging.info("Setting 'Date' column as index")
             list(map(utils.set_index_as_Date, df_list))
 
+            logging.info("Preparing combined dataframe")
+            df_combined = pd.concat([df_br['Price'], df_itc['Price'], df_rel['Price'], df_tatam['Price'], df_tcs['Price']], axis=1, join="inner", keys= ["Britannia", "ITC", "Reliance", "TATA_Motors", "TCS"])
+
             logging.info("split datasets into train and test set")
+            df_combined_train, df_combined_test = utils.split_data(df_combined, self.data_validation_config.test_size)
             train_df_br, test_df_br = utils.split_data(df_br, self.data_validation_config.test_size)
             train_df_itc, test_df_itc = utils.split_data(df_itc, self.data_validation_config.test_size)
             train_df_rel, test_df_rel = utils.split_data(df_rel, self.data_validation_config.test_size)
@@ -159,6 +163,8 @@ class DataValidation:
             os.makedirs(dataset_dir,exist_ok=True)
 
             logging.info("Saving train df and test df to dataset folder")
+            utils.save_numpy_array_data(file_path=self.data_validation_config.combined_train_file_path, array=df_combined_train)
+            utils.save_numpy_array_data(file_path=self.data_validation_config.combined_test_file_path, array=df_combined_test)
             utils.save_numpy_array_data(file_path=self.data_validation_config.train_file_path_br, array=train_df_br)
             utils.save_numpy_array_data(file_path=self.data_validation_config.test_file_path_br, array=test_df_br)
             utils.save_numpy_array_data(file_path=self.data_validation_config.train_file_path_itc, array=train_df_itc)
@@ -169,6 +175,7 @@ class DataValidation:
             utils.save_numpy_array_data(file_path=self.data_validation_config.test_file_path_tatam, array=test_df_tatam)
             utils.save_numpy_array_data(file_path=self.data_validation_config.train_file_path_tcs, array=train_df_tcs)
             utils.save_numpy_array_data(file_path=self.data_validation_config.test_file_path_tcs, array=test_df_tcs)
+            df_combined.to_csv(path_or_buf=self.data_validation_config.combined_file_path, index=False, header=True)
 
             # Write the report
             logging.info("Writing report in yaml file")
@@ -177,6 +184,9 @@ class DataValidation:
 
             logging.info("Preparing data validation artifacts") 
             data_validation_artifact = artifact_entity.DataValidationArtifact(report_file_path=self.data_validation_config.report_file_path,
+                                                                              combined_file_path=self.data_validation_config.combined_file_path,
+                                                                              combined_train_file_path=self.data_validation_config.combined_train_file_path,
+                                                                              combined_test_file_path=self.data_validation_config.combined_test_file_path,
                                                                               train_file_path_br=self.data_validation_config.train_file_path_br,
                                                                               train_file_path_itc=self.data_validation_config.train_file_path_itc,
                                                                               train_file_path_rel=self.data_validation_config.train_file_path_rel,

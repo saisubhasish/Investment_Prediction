@@ -21,6 +21,10 @@ RELIANCE_TEST_FILE_NAME = "reliance_test.npz"
 TATAMOTORS_TEST_FILE_NAME = "tatamotors_test.npz"
 TCS_TEST_FILE_NAME = "tcs_test.npz"
 
+COMBINED_FILE_NAME = "combine_data.csv"
+COMBINED_TRAIN_FILE_NAME = "combine_train_data.npz"
+COMBINED_TEST_FILE_NAME = "combine_test_data.npz"
+
 
 TRANSFORMER_OBJECT_FILE_NAME = "transformer.pkl"
 TARGET_ENCODER_OBJECT_FILE_NAME = "target_encoder.pkl"
@@ -86,6 +90,10 @@ class DataValidationConfig:
             self.base_file_path_tcs = os.path.join("tcs.csv")
 
             self.dataset_dir = os.path.join(self.data_validation_dir,"dataset")
+
+            self.combined_file_path = os.path.join(self.dataset_dir,"Combined_dataset",COMBINED_FILE_NAME)
+            self.combined_train_file_path = os.path.join(self.dataset_dir,"Combined_dataset",COMBINED_TRAIN_FILE_NAME)
+            self.combined_test_file_path = os.path.join(self.dataset_dir,"Combined_dataset",COMBINED_TEST_FILE_NAME)
             
             self.train_file_path_br = os.path.join(self.dataset_dir,"Dataset_1",BRITANNIA_TRAIN_FILE_NAME)
             self.train_file_path_itc = os.path.join(self.dataset_dir,"Dataset_2",ITC_TRAIN_FILE_NAME)
