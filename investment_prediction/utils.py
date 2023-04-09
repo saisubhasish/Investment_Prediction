@@ -233,3 +233,29 @@ def supvervisedSeries(data, n, h):
         x.append(data[i:(i+n)])
         y.append(data[i+h+n-1])
     return np.array(x), np.array(y)
+
+def reshape_Y(data):
+    """
+    Description: This function reshapes the data because by default it contains all 5 features.
+    And we require 1.
+    =========================================================
+    Params:
+    data: numpy array => shape(n, 5)
+    =========================================================
+    returns numpy array shape(n, 1)
+    """
+    Y = np.reshape(data[:, 0], (data [:, 0].shape[0], 1))
+    return Y
+
+def flattern_input(X):
+    """
+    Description: This function flatterns the input data
+    =========================================================
+    Params:
+    data: numpy array => shape(n, 5, 5)
+    =========================================================
+    returns numpy array shape(n, 25)
+    """
+    n_input = X.shape[1] * X.shape[2]
+    X = X.reshape((X.shape[0], n_input))
+    return X

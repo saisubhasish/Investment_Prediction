@@ -25,6 +25,21 @@ class DataTransformation:
 
         except Exception as e:
             raise InvestmentPredictionException(e, sys)
+
+    @classmethod    
+    def scale_feature(cls, trainX, testX):
+        try:
+            scalers = {}
+            for i in range (trainX.shape[2]):
+                print(i)
+                scalers[i] = StandardScaler()
+                trainX[:, :, i] = scalers[i].fit_transform(trainX[:, :, i])
+            for i in range(testX.shape[2]):
+                testX[:, :, i] = scalers[i].transform(testX[:, :, i])
+            return trainX, testX
+        
+        except Exception as e:
+            raise InvestmentPredictionException(e, sys)
         
     @classmethod
     def get_data_transformer_object(cls)->Pipeline:     # Attributes of this class will be same across all the object 
@@ -73,13 +88,20 @@ class DataTransformation:
             tcs_train_x, tcs_train_y = utils.supvervisedSeries(train_data_tcs, no_of_features, time_horizon)
             tcs_test_X, tcs_test_y = utils.supvervisedSeries(test_data_tcs, no_of_features, time_horizon)
 
-            
-            transformation_pipleine = DataTransformation.get_data_transformer_object()
-            transformation_pipleine.fit(input_feature_train_df)
+            logging.info("Reshaping the Y data of combined data")
+            combined_train_y = utils.reshape_Y(combined_train_y)
+            combined_test_y = utils.reshape_Y(combined_test_y)
 
-            # Transforming input features
-            input_feature_train_arr = transformation_pipleine.transform(input_feature_train_df)  # Transformaing input features to array
-            input_feature_test_arr = transformation_pipleine.transform(input_feature_test_df)
+            logging.info("Transforming features") 
+            combined_train_arr_X, combined_test_arr_X = self.scale_feature(combined_train_X, combined_test_X)
+
+            transformation_pipleine = DataTransformation.get_data_transformer_object()
+            transformation_pipleine.fit(combined_train_y)
+
+            logging.info("Transforming  labels")
+            combined_train_arr_y = transformation_pipleine.transform(combined_train_y)  # Transformaing input features to array
+            combined_test_arr_y = transformation_pipleine.transform(combined_test_y)
+            
             
             # Handling imbalanced data by resampling
             smt = SMOTETomek(random_state=42)

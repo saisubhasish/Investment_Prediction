@@ -1,12 +1,11 @@
 import os, sys
 from investment_prediction.logger import logging
 from investment_prediction.exception import InvestmentPredictionException
-from investment_prediction.config import company_list, raw_file_path
+from investment_prediction.config import company_list, raw_file_path, preprocessed_file_path
 from ETL.scrapper import Data_scraper
 from ETL.data_preprocessing import Data_Wrangling
 from ETL.data_dump import Data_Loading
-from investment_prediction.config import raw_file_path, preprocessed_file_path
-from investment_prediction.config import preprocessed_file_path, DATABASE_NAME, COLLECTION_NAME_br, COLLECTION_NAME_itc, COLLECTION_NAME_rel, COLLECTION_NAME_tatam, COLLECTION_NAME_tcs
+from investment_prediction.config import DATABASE_NAME, COLLECTION_NAME_br, COLLECTION_NAME_itc, COLLECTION_NAME_rel, COLLECTION_NAME_tatam, COLLECTION_NAME_tcs
 
 start_date = '2016-03-19'
 end_date = '2023-03-19'
