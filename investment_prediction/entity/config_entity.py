@@ -112,3 +112,28 @@ class DataValidationConfig:
             
         except Exception  as e:
             raise InvestmentPredictionException(e,sys)  
+        
+class DataTransformationConfig:
+    def __init__(self,training_pipeline_config:TrainingPipelineConfig):
+        try:
+            self.data_transformation_dir = os.path.join(training_pipeline_config.artifact_dir , "data_transformation")
+            self.transform_object_path = os.path.join(self.data_transformation_dir,"transformer",TRANSFORMER_OBJECT_FILE_NAME)
+            self.transformationed_dir_path = os.path.join(self.data_transformation_dir,"transformed")
+
+            self.combined_train_file_path = os.path.join(self.transformationed_dir_path,"Combined_dataset",COMBINED_TRAIN_FILE_NAME)
+            self.combined_test_file_path = os.path.join(self.transformationed_dir_path,"Combined_dataset",COMBINED_TEST_FILE_NAME)
+            
+            self.train_file_path_br = os.path.join(self.transformationed_dir_path,"Dataset_1",BRITANNIA_TRAIN_FILE_NAME)
+            self.train_file_path_itc = os.path.join(self.transformationed_dir_path,"Dataset_2",ITC_TRAIN_FILE_NAME)
+            self.train_file_path_rel = os.path.join(self.transformationed_dir_path,"Dataset_3",RELIANCE_TRAIN_FILE_NAME)
+            self.train_file_path_tatam = os.path.join(self.transformationed_dir_path,"Dataset_4",TATAMOTORS_TRAIN_FILE_NAME)
+            self.train_file_path_tcs = os.path.join(self.transformationed_dir_path,"Dataset_5",TCS_TRAIN_FILE_NAME)
+
+            self.test_file_path_br = os.path.join(self.transformationed_dir_path,"Dataset_1",BRITANNIA_TEST_FILE_NAME)
+            self.test_file_path_itc = os.path.join(self.transformationed_dir_path,"Dataset_2",ITC_TEST_FILE_NAME)
+            self.test_file_path_rel = os.path.join(self.transformationed_dir_path,"Dataset_3",RELIANCE_TEST_FILE_NAME)
+            self.test_file_path_tatam = os.path.join(self.transformationed_dir_path,"Dataset_4",TATAMOTORS_TEST_FILE_NAME)
+            self.test_file_path_tcs = os.path.join(self.transformationed_dir_path,"Dataset_5",TCS_TEST_FILE_NAME)
+
+        except Exception  as e:
+            raise InvestmentPredictionException(e,sys) 

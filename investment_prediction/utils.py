@@ -216,3 +216,20 @@ def write_yaml_file(file_path,data:dict):
             yaml.dump(data,file_writer)
     except Exception as e:
         raise InvestmentPredictionException(e, sys)
+    
+def supvervisedSeries(data, n, h):
+    """
+    Description: This function format the data in such a way that, supervised learning can be applied.
+    ie. splitting the both train set and test set to X and Y.
+    =========================================================
+    Params:
+    df: numpy array
+    test_size: split size
+    =========================================================
+    returns train_set nad test_set
+    """
+    x, y = [], []
+    for i in range (len(data)-n-h+1):
+        x.append(data[i:(i+n)])
+        y.append(data[i+h+n-1])
+    return np.array(x), np.array(y)

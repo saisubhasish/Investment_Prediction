@@ -24,3 +24,19 @@ class DataValidationArtifact:
     test_file_path_rel:str
     test_file_path_tatam:str
     test_file_path_tcs:str
+
+@dataclass
+class DataTransformationArtifact:
+    transform_object_path:str
+    combined_train_file_path:str
+    combined_test_file_path:str
+    train_file_path_br:str
+    train_file_path_itc:str
+    train_file_path_rel:str
+    train_file_path_tatam:str
+    train_file_path_tcs:str
+    test_file_path_br:str
+    test_file_path_itc:str
+    test_file_path_rel:str
+    test_file_path_tatam:str
+    test_file_path_tcs:str

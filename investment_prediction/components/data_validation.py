@@ -162,7 +162,7 @@ class DataValidation:
             dataset_dir = os.path.dirname(self.data_validation_config.train_file_path_br)
             os.makedirs(dataset_dir,exist_ok=True)
 
-            logging.info("Saving train df and test df to dataset folder")
+            logging.info("Saving combined df, train df and test df to dataset folder")
             utils.save_numpy_array_data(file_path=self.data_validation_config.combined_train_file_path, array=df_combined_train)
             utils.save_numpy_array_data(file_path=self.data_validation_config.combined_test_file_path, array=df_combined_test)
             utils.save_numpy_array_data(file_path=self.data_validation_config.train_file_path_br, array=train_df_br)
