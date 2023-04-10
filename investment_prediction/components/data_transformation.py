@@ -73,49 +73,90 @@ class DataTransformation:
             combined_train_X, combined_train_y  = utils.supvervisedSeries(data_combined_train, no_of_features, time_horizon)   
             combined_test_X, combined_test_y = utils.supvervisedSeries(data_combined_test, no_of_features, time_horizon)
 
-            br_train_x, br_train_y = utils.supvervisedSeries(train_data_br, no_of_features, time_horizon)
+            br_train_X, br_train_y = utils.supvervisedSeries(train_data_br, no_of_features, time_horizon)
             br_test_X, br_test_y = utils.supvervisedSeries(test_data_br, no_of_features, time_horizon)
 
-            itc_train_x, itc_train_y = utils.supvervisedSeries(train_data_itc, no_of_features, time_horizon)
+            itc_train_X, itc_train_y = utils.supvervisedSeries(train_data_itc, no_of_features, time_horizon)
             itc_test_X, itc_test_y = utils.supvervisedSeries(test_data_itc, no_of_features, time_horizon)
 
-            rel_train_x, rel_train_y = utils.supvervisedSeries(train_data_rel, no_of_features, time_horizon)
+            rel_train_X, rel_train_y = utils.supvervisedSeries(train_data_rel, no_of_features, time_horizon)
             rel_test_X, rel_test_y = utils.supvervisedSeries(test_data_rel, no_of_features, time_horizon)
 
-            tatam_train_x, tatam_train_y = utils.supvervisedSeries(train_data_tatam, no_of_features, time_horizon)
+            tatam_train_X, tatam_train_y = utils.supvervisedSeries(train_data_tatam, no_of_features, time_horizon)
             tatam_test_X, tatam_test_y = utils.supvervisedSeries(test_data_tatam, no_of_features, time_horizon)
 
-            tcs_train_x, tcs_train_y = utils.supvervisedSeries(train_data_tcs, no_of_features, time_horizon)
+            tcs_train_X, tcs_train_y = utils.supvervisedSeries(train_data_tcs, no_of_features, time_horizon)
             tcs_test_X, tcs_test_y = utils.supvervisedSeries(test_data_tcs, no_of_features, time_horizon)
 
             logging.info("Reshaping the Y data of combined data")
             combined_train_y = utils.reshape_Y(combined_train_y)
             combined_test_y = utils.reshape_Y(combined_test_y)
 
-            logging.info("Transforming features") 
-            combined_train_arr_X, combined_test_arr_X = self.scale_feature(combined_train_X, combined_test_X)
+            logging.info("Reshaping the Y data of britannia data")
+            br_train_y = utils.reshape_Y(br_train_y)
+            br_test_y = utils.reshape_Y(br_test_y)
+
+            logging.info("Reshaping the Y data of itc data")
+            itc_train_y = utils.reshape_Y(itc_train_y)
+            itc_test_y = utils.reshape_Y(itc_test_y)
+
+            logging.info("Reshaping the Y data of reliance data")
+            rel_train_y = utils.reshape_Y(rel_train_y)
+            rel_test_y = utils.reshape_Y(rel_test_y)
+
+            logging.info("Reshaping the Y data of tatamotors data")
+            tatam_train_y = utils.reshape_Y(tatam_train_y)
+            tatam_test_y = utils.reshape_Y(tatam_test_y)
+
+            logging.info("Reshaping the Y data of tcs data")
+            tcs_train_y = utils.reshape_Y(tcs_train_y)
+            tcs_test_y = utils.reshape_Y(tcs_test_y)
+
+            logging.info("Transforming features of combined data") 
+            combined_train_arr_X, combined_test_arr_X = self.scale_feature(combined_train_X, combined_test_X)  # Transformaing input features to array
+
+            logging.info("Transforming features of combined data") 
+            br_train_arr_X, br_test_arr_X = self.scale_feature(br_train_X, br_test_X)  # Transformaing input features to array
+
+            logging.info("Transforming features of combined data") 
+            itc_train_arr_X, itc_test_arr_X = self.scale_feature(itc_train_X, itc_test_X)  # Transformaing input features to array
+
+            logging.info("Transforming features of combined data") 
+            rel_train_arr_X, rel_test_arr_X = self.scale_feature(rel_train_X, rel_test_X)  # Transformaing input features to array
+
+            logging.info("Transforming features of combined data") 
+            tatam_train_arr_X, tatam_test_arr_X = self.scale_feature(tatam_train_X, tatam_test_X)  # Transformaing input features to array
+
+            logging.info("Transforming features of combined data") 
+            tcs_train_arr_X, tcs_test_arr_X = self.scale_feature(tcs_train_X, tcs_test_X)  # Transformaing input features to array
 
             transformation_pipleine = DataTransformation.get_data_transformer_object()
             transformation_pipleine.fit(combined_train_y)
 
-            logging.info("Transforming  labels")
-            combined_train_arr_y = transformation_pipleine.transform(combined_train_y)  # Transformaing input features to array
+            logging.info("Transforming  labels of combined data")
+            combined_train_arr_y = transformation_pipleine.transform(combined_train_y)  # Transformaing output label to array
             combined_test_arr_y = transformation_pipleine.transform(combined_test_y)
             
-            
-            # Handling imbalanced data by resampling
-            smt = SMOTETomek(random_state=42)
-            logging.info(f"Before resampling in training set Input: {input_feature_train_arr.shape} Target:{target_feature_train_arr.shape}")
-            input_feature_train_arr, target_feature_train_arr = smt.fit_resample(input_feature_train_arr, target_feature_train_arr)
-            logging.info(f"After resampling in training set Input: {input_feature_train_arr.shape} Target:{target_feature_train_arr.shape}")
-            
-            logging.info(f"Before resampling in testing set Input: {input_feature_test_arr.shape} Target:{target_feature_test_arr.shape}")
-            input_feature_test_arr, target_feature_test_arr = smt.fit_resample(input_feature_test_arr, target_feature_test_arr)
-            logging.info(f"After resampling in testing set Input: {input_feature_test_arr.shape} Target:{target_feature_test_arr.shape}")
+            logging.info("Transforming  labels of britannia data")
+            br_train_arr_y = transformation_pipleine.transform(br_train_y)  # Transformaing output label to array
+            br_test_arr_y = transformation_pipleine.transform(br_test_y)
 
-            # Target encoder
-            train_arr = np.c_[input_feature_train_arr, target_feature_train_arr]    # concatenated array
-            test_arr = np.c_[input_feature_test_arr, target_feature_test_arr]
+            logging.info("Transforming  labels of itc data")
+            itc_train_arr_y = transformation_pipleine.transform(itc_train_y)  # Transformaing output label to array
+            itc_test_arr_y = transformation_pipleine.transform(itc_test_y)
+
+            logging.info("Transforming  labels of reliance data")
+            rel_train_arr_y = transformation_pipleine.transform(rel_train_y)  # Transformaing output label to array
+            rel_test_arr_y = transformation_pipleine.transform(rel_test_y)
+
+            logging.info("Transforming  labels of tatamotors data")
+            tatam_train_arr_y = transformation_pipleine.transform(tatam_train_y)  # Transformaing output label to array
+            tatam_test_arr_y = transformation_pipleine.transform(tatam_test_y)
+
+            logging.info("Transforming  labels of tcs data")
+            tcs_train_arr_y = transformation_pipleine.transform(tcs_train_y)  # Transformaing output label to array
+            tcs_test_arr_y = transformation_pipleine.transform(tcs_test_y)
+
 
 
             # Save numpy array
