@@ -52,3 +52,11 @@ class DataTransformationArtifact:
     transformed_tcs_test_arr_X_path:str
     transformed_tcs_train_arr_y_path:str
     transformed_tcs_test_arr_y_path:str
+
+@dataclass
+class ModelTrainerArtifact:
+    model_path:str 
+    f1_train_score:float 
+    f1_test_score:float
+
+    

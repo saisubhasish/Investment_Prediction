@@ -56,8 +56,7 @@ TCS_TRAIN_ARRAY_y_FILE_NAME = "tcs_train_arr_y.npz"
 TCS_TEST_ARRAY_y_FILE_NAME = "tcs_test_arr_y.npz"
 
 TRANSFORMER_OBJECT_FILE_NAME = "transformer.pkl"
-TARGET_ENCODER_OBJECT_FILE_NAME = "target_encoder.pkl"
-MODEL_FILE_NAME = "model.pkl"
+MODEL_FILE_NAME = "model.h5"
 
 class TrainingPipelineConfig:
 
@@ -181,3 +180,14 @@ class DataTransformationConfig:
 
         except Exception  as e:
             raise InvestmentPredictionException(e,sys) 
+        
+class ModelTrainerConfig:
+    def __init__(self,training_pipeline_config:TrainingPipelineConfig):
+        try:
+            self.model_trainer_dir = os.path.join(training_pipeline_config.artifact_dir , "model_trainer")
+            self.model_path = os.path.join(self.model_trainer_dir,"model",MODEL_FILE_NAME)
+            self.expected_score = 0.7
+            self.overfitting_threshold = 0.1
+        
+        except Exception as e:
+            raise InvestmentPredictionException(e,sys)
