@@ -49,6 +49,7 @@ class DataTransformation:
                     ('StandardScaler',scaler)  # To scale data in a range
                 ])
             return pipeline
+        
         except Exception as e:
             raise InvestmentPredictionException(e, sys)
         
@@ -157,22 +158,67 @@ class DataTransformation:
             tcs_train_arr_y = transformation_pipleine.transform(tcs_train_y)  # Transformaing output label to array
             tcs_test_arr_y = transformation_pipleine.transform(tcs_test_y)
 
-
-
             # Save numpy array
-            utils.save_numpy_array_data(file_path=self.data_transformation_config.transformed_train_path, array=train_arr)
-            utils.save_numpy_array_data(file_path=self.data_transformation_config.transformed_test_path, array=test_arr)
+            utils.save_numpy_array_data(file_path=self.data_transformation_config.transformed_combined_train_arr_X_path, array=combined_train_arr_X)
+            utils.save_numpy_array_data(file_path=self.data_transformation_config.transformed_combined_train_arr_y_path, array=combined_train_arr_y)
+            utils.save_numpy_array_data(file_path=self.data_transformation_config.transformed_combined_test_arr_X_path, array=combined_test_arr_X)
+            utils.save_numpy_array_data(file_path=self.data_transformation_config.transformed_combined_test_arr_y_path, array=combined_test_arr_y)
+
+            utils.save_numpy_array_data(file_path=self.data_transformation_config.transformed_br_train_arr_X_path, array=br_train_arr_X)
+            utils.save_numpy_array_data(file_path=self.data_transformation_config.transformed_br_train_arr_y_path, array=br_train_arr_y)
+            utils.save_numpy_array_data(file_path=self.data_transformation_config.transformed_br_test_arr_X_path, array=br_test_arr_X)
+            utils.save_numpy_array_data(file_path=self.data_transformation_config.transformed_br_test_arr_y_path, array=br_test_arr_y)
+
+            utils.save_numpy_array_data(file_path=self.data_transformation_config.transformed_itc_train_arr_X_path, array=itc_train_arr_X)
+            utils.save_numpy_array_data(file_path=self.data_transformation_config.transformed_itc_train_arr_y_path, array=itc_train_arr_y)
+            utils.save_numpy_array_data(file_path=self.data_transformation_config.transformed_itc_test_arr_X_path, array=itc_test_arr_X)
+            utils.save_numpy_array_data(file_path=self.data_transformation_config.transformed_itc_test_arr_y_path, array=itc_test_arr_y)
+
+            utils.save_numpy_array_data(file_path=self.data_transformation_config.transformed_rel_train_arr_X_path, array=rel_train_arr_X)
+            utils.save_numpy_array_data(file_path=self.data_transformation_config.transformed_rel_train_arr_y_path, array=rel_train_arr_y)
+            utils.save_numpy_array_data(file_path=self.data_transformation_config.transformed_rel_test_arr_X_path, array=rel_test_arr_X)
+            utils.save_numpy_array_data(file_path=self.data_transformation_config.transformed_rel_test_arr_y_path, array=rel_test_arr_y)
+
+            utils.save_numpy_array_data(file_path=self.data_transformation_config.transformed_tatam_train_arr_X_path, array=tatam_train_arr_X)
+            utils.save_numpy_array_data(file_path=self.data_transformation_config.transformed_tatam_train_arr_y_path, array=tatam_train_arr_y)
+            utils.save_numpy_array_data(file_path=self.data_transformation_config.transformed_tatam_test_arr_X_path, array=tatam_test_arr_X)
+            utils.save_numpy_array_data(file_path=self.data_transformation_config.transformed_tatam_test_arr_y_path, array=tatam_test_arr_y)
+
+            utils.save_numpy_array_data(file_path=self.data_transformation_config.transformed_tcs_train_arr_X_path, array=tcs_train_arr_X)
+            utils.save_numpy_array_data(file_path=self.data_transformation_config.transformed_tcs_train_arr_y_path, array=tcs_train_arr_X)
+            utils.save_numpy_array_data(file_path=self.data_transformation_config.transformed_tcs_test_arr_X_path, array=tcs_test_arr_X)
+            utils.save_numpy_array_data(file_path=self.data_transformation_config.transformed_tcs_test_arr_y_path, array=tcs_test_arr_y)
 
             # Saving object
             utils.save_object(file_path=self.data_transformation_config.transform_object_path, obj=transformation_pipleine)
-            utils.save_object(file_path=self.data_transformation_config.target_encoder_path, obj=label_encoder)
 
             # Preparing Artifact
             data_transformation_artifact = artifact_entity.DataTransformationArtifact(
-                transform_object_path=self.data_transformation_config.transform_object_path,
-                transformed_train_path = self.data_transformation_config.transformed_train_path,
-                transformed_test_path = self.data_transformation_config.transformed_test_path,
-                target_encoder_path = self.data_transformation_config.target_encoder_path)
+                transform_object_path=self.data_transformation_config.transform_object_path,             
+                transformed_combined_train_arr_X_path = self.data_transformation_config.transformed_combined_train_arr_X_path,
+                transformed_combined_test_arr_X_path = self.data_transformation_config.transformed_combined_test_arr_X_path,
+                transformed_combined_train_arr_y_path = self.data_transformation_config.transformed_combined_train_arr_y_path,
+                transformed_combined_test_arr_y_path = self.data_transformation_config.transformed_combined_test_arr_y_path,
+                transformed_br_train_arr_X_path = self.data_transformation_config.transformed_br_train_arr_X_path,
+                transformed_br_test_arr_X_path = self.data_transformation_config.transformed_br_test_arr_X_path,
+                transformed_br_train_arr_y_path = self.data_transformation_config.transformed_br_train_arr_y_path,
+                transformed_br_test_arr_y_path = self.data_transformation_config.transformed_br_test_arr_y_path,
+                transformed_itc_train_arr_X_path = self.data_transformation_config.transformed_itc_train_arr_X_path,
+                transformed_itc_test_arr_X_path = self.data_transformation_config.transformed_itc_test_arr_X_path,
+                transformed_itc_train_arr_y_path = self.data_transformation_config.transformed_br_train_arr_y_path,
+                transformed_itc_test_arr_y_path = self.data_transformation_config.transformed_br_test_arr_y_path,
+                transformed_rel_train_arr_X_path = self.data_transformation_config.transformed_rel_train_arr_X_path,
+                transformed_rel_test_arr_X_path = self.data_transformation_config.transformed_rel_test_arr_X_path,
+                transformed_rel_train_arr_y_path = self.data_transformation_config.transformed_rel_train_arr_y_path,
+                transformed_rel_test_arr_y_path = self.data_transformation_config.transformed_rel_test_arr_y_path,
+                transformed_tatam_train_arr_X_path = self.data_transformation_config.transformed_tatam_train_arr_X_path,
+                transformed_tatam_test_arr_X_path = self.data_transformation_config.transformed_tatam_test_arr_X_path,
+                transformed_tatam_train_arr_y_path = self.data_transformation_config.transformed_tatam_train_arr_y_path,
+                transformed_tatam_test_arr_y_path = self.data_transformation_config.transformed_tatam_test_arr_y_path,
+                transformed_tcs_train_arr_X_path = self.data_transformation_config.transformed_tcs_train_arr_X_path,
+                transformed_tcs_test_arr_X_path = self.data_transformation_config.transformed_tcs_test_arr_X_path,
+                transformed_tcs_train_arr_y_path = self.data_transformation_config.transformed_tcs_train_arr_y_path,
+                transformed_tcs_test_arr_y_path = self.data_transformation_config.transformed_tcs_test_arr_y_path)
 
             logging.info(f"Data transformation object {data_transformation_artifact}")
             return data_transformation_artifact

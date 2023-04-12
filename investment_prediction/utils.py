@@ -3,6 +3,7 @@ import sys
 import pandas as pd
 import numpy as np
 import yaml
+import dill    # To store python object as a file like pkl
 from investment_prediction.config import mongo_client
 from investment_prediction.logger import logging
 from investment_prediction.exception import InvestmentPredictionException
@@ -259,3 +260,16 @@ def flattern_input(X):
     n_input = X.shape[1] * X.shape[2]
     X = X.reshape((X.shape[0], n_input))
     return X
+
+def save_object(file_path: str, obj: object) -> None:
+    """
+    Saving object 
+    """
+    try:
+        logging.info("Entered the save_object method of utils")
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+        with open(file_path, "wb") as file_obj:
+            dill.dump(obj, file_obj)
+        logging.info("Exited the save_object method of utils")
+    except Exception as e:
+        raise InvestmentPredictionException(e, sys) from e
