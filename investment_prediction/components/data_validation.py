@@ -8,6 +8,8 @@ import pandas as pd
 from investment_prediction import utils
 import numpy as np
 
+collection_name = 'itc'
+
 
 class DataValidation:
 
@@ -82,101 +84,53 @@ class DataValidation:
     def initiate_data_validation(self)->artifact_entity.DataValidationArtifact:
         try:
             logging.info("Reading base dataframe")
-            base_df_br = pd.read_csv(self.data_validation_config.base_file_path_br)
+            base_df_br = pd.read_csv(self.data_validation_config.base_file_path_britannia)
             base_df_itc = pd.read_csv(self.data_validation_config.base_file_path_itc)
-            base_df_rel = pd.read_csv(self.data_validation_config.base_file_path_rel)
-            base_df_tatam = pd.read_csv(self.data_validation_config.base_file_path_tatam)
-            base_df_tcs = pd.read_csv(self.data_validation_config.base_file_path_tcs)
+            base_df_rel = pd.read_csv(self.data_validation_config.base_file_path_reliance)
+            base_df_tatam = pd.read_csv(self.data_validation_config.base_file_path_tata_motors)
+            base_df_tcs = pd.read_csv(self.data_validation_config.base_file_path_tata_consultancy_services)
 
-            logging.info("Reading britannia dataframe")
-            curr_df_br = pd.read_csv(self.data_ingestion_artifact.dataset1_file_path)
-            logging.info("Reading itc dataframe")
-            curr_df_itc = pd.read_csv(self.data_ingestion_artifact.dataset2_file_path)
-            logging.info("Reading reliance dataframe")
-            curr_df_rel = pd.read_csv(self.data_ingestion_artifact.dataset3_file_path)
-            logging.info("Reading tatamotors dataframe")
-            curr_df_tatam = pd.read_csv(self.data_ingestion_artifact.dataset4_file_path)
-            logging.info("Reading tcs dataframe")
-            curr_df_tcs = pd.read_csv(self.data_ingestion_artifact.dataset5_file_path)
+            base = self.data_ingestion_artifact.feature_store_file_path
+            base = base.split('\\')
 
-            logging.info("Is all required columns present in britannia df")
-            df_br_columns_status = self.is_required_columns_exists(base_df=base_df_br, current_df=curr_df_br, report_key_name="missing_columns_within_britannia_dataset")
-            logging.info("Is all required columns present in itc df")
-            df_itc_columns_status = self.is_required_columns_exists(base_df=base_df_itc, current_df=curr_df_itc, report_key_name="missing_columns_within_itc_dataset")
-            logging.info("Is all required columns present in reliance df")
-            df_rel_columns_status = self.is_required_columns_exists(base_df=base_df_rel, current_df=curr_df_rel, report_key_name="missing_columns_within_reliance_dataset")
-            logging.info("Is all required columns present in tatamotors df")
-            df_tatam_columns_status = self.is_required_columns_exists(base_df=base_df_tatam, current_df=curr_df_tatam, report_key_name="missing_columns_within_tatamotors_dataset")
-            logging.info("Is all required columns present in tcs df")
-            df_tcs_columns_status = self.is_required_columns_exists(base_df=base_df_tcs, current_df=curr_df_tcs, report_key_name="missing_columns_within_tcs_dataset")
+            if 'britannia-industries.csv' in base:
+                base_df = base_df_br
+            elif 'itc.csv' in base:
+                base_df = base_df_itc
+            elif 'reliance-industries.csv' in base:
+                base_df = base_df_rel
+            elif 'tata-motors-ltd.csv' in base:
+                base_df = base_df_tatam
+            elif 'tata-consultancy-services.csv' in base:
+                base_df = base_df_tcs
+
+            logging.info("Reading data from data ingestion artifact")
+            curr_df = pd.read_csv(self.data_ingestion_artifact.feature_store_file_path)
+
+            logging.info(f"Is all required columns present in the {collection_name} df")
+            df_columns_status = self.is_required_columns_exists(base_df=base_df, current_df=curr_df, report_key_name="missing_columns_within_tcs_dataset")
             
-            if df_br_columns_status:     # If True
+            if df_columns_status:     # If True
                 logging.info("\n As all column are available in britannia df hence detecting data drift")
-                self.data_drift(base_df=base_df_br, current_df=curr_df_br,report_key_name="data_drift_within_britannia_dataset")
+                self.data_drift(base_df=base_df, current_df=curr_df, report_key_name= f"data_drift_within_{collection_name}_dataset")
 
-            if df_itc_columns_status:     # If True
-                logging.info("\n As all column are available in itc df hence detecting data drift")
-                self.data_drift(base_df=base_df_itc, current_df=curr_df_itc,report_key_name="data_drift_within_itc_dataset")
-
-            if df_rel_columns_status:     # If True
-                logging.info("\n As all column are available in reliance df hence detecting data drift")
-                self.data_drift(base_df=base_df_rel, current_df=curr_df_rel,report_key_name="data_drift_within_reliance_dataset")
-
-            if df_tatam_columns_status:     # If True
-                logging.info("\n As all column are available in tatamotors df hence detecting data drift")
-                self.data_drift(base_df=base_df_tatam, current_df=curr_df_tatam,report_key_name="data_drift_within_tatamotors_dataset")
-
-            if df_tcs_columns_status:     # If True
-                logging.info("\n As all column are available in tcs df hence detecting data drift")
-                self.data_drift(base_df=base_df_tcs, current_df=curr_df_tcs,report_key_name="data_drift_within_tcs_dataset")
-
-            logging.info("Considering 'Date' and 'Price' column for britannia dataframe")
-            df_br = curr_df_br[['Date', 'Price']]
-            logging.info("Considering 'Date' and 'Price' column for itc dataframe")
-            df_itc = curr_df_itc[['Date', 'Price']]
-            logging.info("Considering 'Date' and 'Price' column for reliance dataframe")
-            df_rel = curr_df_rel[['Date', 'Price']]
-            logging.info("Considering 'Date' and 'Price' column for tatamotors dataframe")
-            df_tatam = curr_df_tatam[['Date', 'Price']]
-            logging.info("Considering 'Date' and 'Price' column for tcs dataframe")
-            df_tcs = curr_df_tcs[['Date', 'Price']]
-
-            logging.info("Preparing list of dataframes")
-            df_list = [df_br, df_itc, df_rel, df_tatam, df_tcs]
+            logging.info(f"Considering 'Date' and 'Price' column for {collection_name} dataframe")
+            df = curr_df[['Date', 'Price']]
 
             logging.info("Setting 'Date' column as index")
-            list(map(utils.set_index_as_Date, df_list))
-
-            logging.info("Preparing combined dataframe")
-            df_combined = pd.concat([df_br['Price'], df_itc['Price'], df_rel['Price'], df_tatam['Price'], df_tcs['Price']], axis=1, join="inner", keys= ["Britannia", "ITC", "Reliance", "TATA_Motors", "TCS"])
+            df = utils.set_index_as_Date(df=df)
 
             logging.info("split datasets into train and test set")
-            df_combined_train, df_combined_test = utils.split_data(df_combined, self.data_validation_config.test_size)
-            train_df_br, test_df_br = utils.split_data(df_br, self.data_validation_config.test_size)
-            train_df_itc, test_df_itc = utils.split_data(df_itc, self.data_validation_config.test_size)
-            train_df_rel, test_df_rel = utils.split_data(df_rel, self.data_validation_config.test_size)
-            train_df_tatam, test_df_tatam = utils.split_data(df_tatam, self.data_validation_config.test_size)
-            train_df_tcs, test_df_tcs = utils.split_data(df_tcs, self.data_validation_config.test_size)
-            
+            train_set, test_set = utils.split_data(df, self.data_validation_config.test_size)
+                       
             logging.info("create dataset directory folder if not available")
-            dataset_dir = os.path.dirname(self.data_validation_config.train_file_path_br)
+            dataset_dir = os.path.dirname(self.data_validation_config.train_file_path)
             os.makedirs(dataset_dir,exist_ok=True)
 
             logging.info("Saving combined df, train df and test df to dataset folder")
-            utils.save_numpy_array_data(file_path=self.data_validation_config.combined_train_file_path, array=df_combined_train)
-            utils.save_numpy_array_data(file_path=self.data_validation_config.combined_test_file_path, array=df_combined_test)
-            utils.save_numpy_array_data(file_path=self.data_validation_config.train_file_path_br, array=train_df_br)
-            utils.save_numpy_array_data(file_path=self.data_validation_config.test_file_path_br, array=test_df_br)
-            utils.save_numpy_array_data(file_path=self.data_validation_config.train_file_path_itc, array=train_df_itc)
-            utils.save_numpy_array_data(file_path=self.data_validation_config.test_file_path_itc, array=test_df_itc)
-            utils.save_numpy_array_data(file_path=self.data_validation_config.train_file_path_rel, array=train_df_rel)
-            utils.save_numpy_array_data(file_path=self.data_validation_config.test_file_path_rel, array=test_df_rel)
-            utils.save_numpy_array_data(file_path=self.data_validation_config.train_file_path_tatam, array=train_df_tatam)
-            utils.save_numpy_array_data(file_path=self.data_validation_config.test_file_path_tatam, array=test_df_tatam)
-            utils.save_numpy_array_data(file_path=self.data_validation_config.train_file_path_tcs, array=train_df_tcs)
-            utils.save_numpy_array_data(file_path=self.data_validation_config.test_file_path_tcs, array=test_df_tcs)
-            df_combined.to_csv(path_or_buf=self.data_validation_config.combined_file_path, index=False, header=True)
-
+            utils.save_numpy_array_data(file_path=self.data_validation_config.train_file_path, array=train_set)
+            utils.save_numpy_array_data(file_path=self.data_validation_config.test_file_path, array=test_set)
+            
             # Write the report
             logging.info("Writing report in yaml file")
             utils.write_yaml_file(file_path=self.data_validation_config.report_file_path,
@@ -184,19 +138,8 @@ class DataValidation:
 
             logging.info("Preparing data validation artifacts") 
             data_validation_artifact = artifact_entity.DataValidationArtifact(report_file_path=self.data_validation_config.report_file_path,
-                                                                              combined_file_path=self.data_validation_config.combined_file_path,
-                                                                              combined_train_file_path=self.data_validation_config.combined_train_file_path,
-                                                                              combined_test_file_path=self.data_validation_config.combined_test_file_path,
-                                                                              train_file_path_br=self.data_validation_config.train_file_path_br,
-                                                                              train_file_path_itc=self.data_validation_config.train_file_path_itc,
-                                                                              train_file_path_rel=self.data_validation_config.train_file_path_rel,
-                                                                              train_file_path_tatam=self.data_validation_config.train_file_path_tatam,
-                                                                              train_file_path_tcs=self.data_validation_config.train_file_path_tcs,
-                                                                              test_file_path_br=self.data_validation_config.test_file_path_br,
-                                                                              test_file_path_itc=self.data_validation_config.test_file_path_itc,
-                                                                              test_file_path_rel=self.data_validation_config.test_file_path_rel,
-                                                                              test_file_path_tatam=self.data_validation_config.test_file_path_tatam,
-                                                                              test_file_path_tcs=self.data_validation_config.test_file_path_tcs)
+                                                                              train_file_path=self.data_validation_config.train_file_path,
+                                                                              test_file_path=self.data_validation_config.test_file_path)
             logging.info(f"Data validation artifact: {data_validation_artifact}")
             return data_validation_artifact
 

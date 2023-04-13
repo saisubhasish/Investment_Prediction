@@ -6,13 +6,6 @@ import os
 
 
 DATABASE_NAME="TimeSeries"
-
-COLLECTION_NAME_br ="britannia"
-COLLECTION_NAME_itc = 'itc'
-COLLECTION_NAME_rel = 'reliance'
-COLLECTION_NAME_tatam = 'tatamotors'
-COLLECTION_NAME_tcs = 'tcs'
-
 raw_file_path = os.path.join(os.getcwd(),"raw_dataset")
 preprocessed_file_path = os.path.join(os.getcwd(),"pre_processed_dataset")
 
