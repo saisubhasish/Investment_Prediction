@@ -29,7 +29,7 @@ class DataIngestion:
             logging.info(f"Exporting collection data as pandas dataframe")
             df_br:pd.DataFrame  = utils.get_collection_as_dataframe(
                 database_name=self.data_ingestion_config.database_name, 
-                collection_name=self.data_ingestion_config.collection_name_br)
+                collection_name=self.data_ingestion_config.collection_name)
             print(df_br)
 
             df_itc:pd.DataFrame  = utils.get_collection_as_dataframe(

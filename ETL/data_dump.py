@@ -10,7 +10,7 @@ from investment_prediction.exception import InvestmentPredictionException
 
 class Data_Loading:
     @staticmethod
-    def dump(preprocessed_file_path, DATABASE_NAME, COLLECTION_NAME_br, COLLECTION_NAME_itc, COLLECTION_NAME_rel, COLLECTION_NAME_tatam, COLLECTION_NAME_tcs):
+    def dump(preprocessed_file_path, DATABASE_NAME, company_list):
         logging.info(f"{'>>'*20} Data Dump {'<<'*20}")
         logging.info('Getting the list of file names from pre-processed directory')
         file_list = os.listdir(preprocessed_file_path)
@@ -34,10 +34,7 @@ class Data_Loading:
         
         logging.info("Preparing list of dataframes")
         df_list = [df_br, df_itc, df_rel, df_tatam, df_tcs]
-
-        logging.info("Preparing list of collections")
-        collection_list = [COLLECTION_NAME_br, COLLECTION_NAME_itc, COLLECTION_NAME_rel, COLLECTION_NAME_tatam, COLLECTION_NAME_tcs]
-
+        
         try:
             logging.info('Updating records to insert data to mongoDB')
             logging.info("Resetting index")
@@ -66,15 +63,39 @@ class Data_Loading:
         logging.info("Preparing list of json records")
         json_record_list = [json_record_br, json_record_itc, json_record_rel, json_record_tatam, json_record_tcs]
 
-        print(json_record_br[1])
+        print(json_record_list[1])
+        
 
         try:
-            logging.info("inserting converted json record to mongo db")
+            #logging.info("inserting converted json record to mongo db")
+            for company in company_list:
+                mongo_client[DATABASE_NAME].create_collection(
+                    company,
+                    timeseries= {
+                        "timeField": "Date",
+                        "metaField": "metadata",
+                        "granularity": "seconds"
+                        }
+                    )
+            logging.info("Preparing list of collections")
+            collection_list = mongo_client[DATABASE_NAME].list_collection_names()
             i = 0
             for collection in collection_list:
-                mongo_client[DATABASE_NAME][collection].insert_many(json_record_list[i])
-                i+=1
-                print(f'Record inserted successfully in collection: {collection}')
+                if collection == 'britannia-industries':
+                    mongo_client[DATABASE_NAME][collection].insert_many(json_record_list[0])
+                    print(f'Record inserted successfully in collection: {collection}')
+                elif collection == 'itc':
+                    mongo_client[DATABASE_NAME][collection].insert_many(json_record_list[1])
+                    print(f'Record inserted successfully in collection: {collection}')
+                elif collection == 'reliance-industries':
+                    mongo_client[DATABASE_NAME][collection].insert_many(json_record_list[2])
+                    print(f'Record inserted successfully in collection: {collection}')
+                elif collection == 'tata-motors-ltd':
+                    mongo_client[DATABASE_NAME][collection].insert_many(json_record_list[3])
+                    print(f'Record inserted successfully in collection: {collection}')
+                elif collection == 'tata-consultancy-services':
+                    mongo_client[DATABASE_NAME][collection].insert_many(json_record_list[4])
+                    print(f'Record inserted successfully in collection: {collection}')
         except Exception as e:
             raise InvestmentPredictionException(e, sys)
 

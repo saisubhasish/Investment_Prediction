@@ -58,6 +58,8 @@ TCS_TEST_ARRAY_y_FILE_NAME = "tcs_test_arr_y.npz"
 TRANSFORMER_OBJECT_FILE_NAME = "transformer.pkl"
 MODEL_FILE_NAME = "model.h5"
 
+collection_name = 'britannia-industries'
+
 class TrainingPipelineConfig:
 
     def __init__(self):
@@ -72,11 +74,11 @@ class DataIngestionConfig:
         try:
             self.database_name="TimeSeries"
 
-            self.collection_name_br="britannia"
+            self.collection_name = collection_name
             self.collection_name_itc="itc"
-            self.collection_name_rel="reliance"
-            self.collection_name_tatam="tatamotors"
-            self.collection_name_tcs="tcs"
+            self.collection_name_rel="reliance-industries"
+            self.collection_name_tatam="tata-motors-ltd"
+            self.collection_name_tcs="tata-consultancy-services"
 
             self.data_ingestion_dir = os.path.join(training_pipeline_config.artifact_dir , "data_ingestion")
 

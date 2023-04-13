@@ -16,12 +16,6 @@ COLLECTION_NAME_tcs = 'tcs'
 raw_file_path = os.path.join(os.getcwd(),"raw_dataset")
 preprocessed_file_path = os.path.join(os.getcwd(),"pre_processed_dataset")
 
-# britannia-industries --> Britannia Inductries
-# itc --> ITC
-# reliance-industries --> Reliance Industries   
-# tata-motors-ltd --> TATA Motors
-# tata-consultancy-services  -->  TCS
-company_list = ['britannia-industries', 'itc', 'reliance-industries', 'tata-motors-ltd', 'tata-consultancy-services']
 
 time_horizon = 1    # time horizon is the number of months, years, or decades you need to invest to achieve your financial goal.
 no_of_features = 5    # number of features
