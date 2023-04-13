@@ -6,12 +6,11 @@ import os
 
 
 DATABASE_NAME="TimeSeries"
+collection_name = 'britannia-industries'
 raw_file_path = os.path.join(os.getcwd(),"raw_dataset")
 preprocessed_file_path = os.path.join(os.getcwd(),"pre_processed_dataset")
 
-
-time_horizon = 1    # time horizon is the number of months, years, or decades you need to invest to achieve your financial goal.
-no_of_features = 5    # number of features
+time_step = 60
 
 @dataclass
 class EnvironmentVariable:

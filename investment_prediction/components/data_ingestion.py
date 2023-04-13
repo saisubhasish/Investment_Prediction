@@ -6,7 +6,7 @@ from investment_prediction.utils import split_data
 import os,sys
 import pandas as pd 
 import numpy as np
-collection_name = 'itc'
+from investment_prediction.config import collection_name
 
 class DataIngestion:
     

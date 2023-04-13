@@ -7,8 +7,7 @@ import os,sys
 import pandas as pd
 from investment_prediction import utils
 import numpy as np
-
-collection_name = 'itc'
+from investment_prediction.config import collection_name
 
 
 class DataValidation:

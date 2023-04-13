@@ -230,22 +230,36 @@ def write_yaml_file(file_path,data:dict):
     except Exception as e:
         raise InvestmentPredictionException(e, sys)
     
-def supvervisedSeries(data, n, h):
+def create_dataset(dataset, time_step=1):
     """
     Description: This function format the data in such a way that, supervised learning can be applied.
     ie. splitting the both train set and test set to X and Y.
     =========================================================
     Params:
-    df: numpy array
-    test_size: split size
+    dataset: numpy array
+    time_step: 1 (default argument)
     =========================================================
     returns train_set nad test_set
     """
-    x, y = [], []
-    for i in range (len(data)-n-h+1):
-        x.append(data[i:(i+n)])
-        y.append(data[i+h+n-1])
-    return np.array(x), np.array(y)
+    dataX, dataY = [], []
+    for i in range(len(dataset)-time_step-1):
+        a = dataset[i:(i+time_step), 0]   ###i=0, 0,1,2,3-----99   100 
+        dataX.append(a)
+        dataY.append(dataset[i + time_step, 0])
+    return np.array(dataX), np.array(dataY)
+
+def reshape_X(data):
+    """
+    Description: This function reshapes the data because by default it contains all 5 features.
+    And we require 1.
+    =========================================================
+    Params:
+    data: numpy array => shape(n, 5)
+    =========================================================
+    returns numpy array shape(n, 1)
+    """
+    data = data.reshape(data.shape[0], data.shape[1] , 1)
+    return data
 
 def reshape_Y(data):
     """

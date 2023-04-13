@@ -2,17 +2,17 @@ import os, sys
 from investment_prediction.exception import InvestmentPredictionException
 from investment_prediction.logger import logging
 from datetime import datetime
+from investment_prediction.config import collection_name
 
-collection_name = 'itc'
 
 FILE_NAME = f"{collection_name}.csv"
 TRAIN_FILE_NAME = f"{collection_name}_train.npz"
 TEST_FILE_NAME = f"{collection_name}_test.npz"
 
-BRITANNIA_TRAIN_ARRAY_X_FILE_NAME = "br_train_arr_X.npz"
-BRITANNIA_TEST_ARRAY_X_FILE_NAME = "br_test_arr_X.npz"
-BRITANNIA_TRAIN_ARRAY_y_FILE_NAME = "br_train_arr_y.npz"
-BRITANNIA_TEST_ARRAY_y_FILE_NAME = "br_test_arr_y.npz"
+TRAIN_ARRAY_X_FILE_NAME = f"{collection_name}_train_arr_X.npz"
+TRAIN_ARRAY_y_FILE_NAME = f"{collection_name}_train_arr_y.npz"
+TEST_ARRAY_X_FILE_NAME = f"{collection_name}_test_arr_X.npz"
+TEST_ARRAY_y_FILE_NAME = f"{collection_name}_test_arr_y.npz"
 
 TRANSFORMER_OBJECT_FILE_NAME = "transformer.pkl"
 MODEL_FILE_NAME = "model.h5"
@@ -78,35 +78,10 @@ class DataTransformationConfig:
             self.transform_object_path = os.path.join(self.data_transformation_dir,"transformer",TRANSFORMER_OBJECT_FILE_NAME)
             self.transformationed_dir_path = os.path.join(self.data_transformation_dir,"transformed")
 
-            self.transformed_combined_train_arr_X_path = os.path.join(self.transformationed_dir_path,"Combined_dataset",COMBINED_TRAIN_ARRAY_X_FILE_NAME)
-            self.transformed_combined_train_arr_y_path = os.path.join(self.transformationed_dir_path,"Combined_dataset",COMBINED_TRAIN_ARRAY_y_FILE_NAME)
-            self.transformed_combined_test_arr_X_path = os.path.join(self.transformationed_dir_path,"Combined_dataset",COMBINED_TEST_ARRAY_X_FILE_NAME)
-            self.transformed_combined_test_arr_y_path = os.path.join(self.transformationed_dir_path,"Combined_dataset",COMBINED_TEST_ARRAY_y_FILE_NAME)
-            
-            self.transformed_br_train_arr_X_path = os.path.join(self.transformationed_dir_path,"Dataset_1",BRITANNIA_TRAIN_ARRAY_X_FILE_NAME)
-            self.transformed_br_train_arr_y_path = os.path.join(self.transformationed_dir_path,"Dataset_1",BRITANNIA_TRAIN_ARRAY_y_FILE_NAME)
-            self.transformed_br_test_arr_X_path = os.path.join(self.transformationed_dir_path,"Dataset_1",BRITANNIA_TEST_ARRAY_X_FILE_NAME)
-            self.transformed_br_test_arr_y_path = os.path.join(self.transformationed_dir_path,"Dataset_1",BRITANNIA_TEST_ARRAY_y_FILE_NAME)
-
-            self.transformed_itc_train_arr_X_path = os.path.join(self.transformationed_dir_path,"Dataset_2",ITC_TRAIN_ARRAY_X_FILE_NAME)
-            self.transformed_itc_train_arr_y_path = os.path.join(self.transformationed_dir_path,"Dataset_2",ITC_TRAIN_ARRAY_y_FILE_NAME)
-            self.transformed_itc_test_arr_X_path = os.path.join(self.transformationed_dir_path,"Dataset_2",ITC_TEST_ARRAY_X_FILE_NAME)
-            self.transformed_itc_test_arr_y_path = os.path.join(self.transformationed_dir_path,"Dataset_2",ITC_TEST_ARRAY_y_FILE_NAME)
-
-            self.transformed_rel_train_arr_X_path = os.path.join(self.transformationed_dir_path,"Dataset_3",RELIANCE_TRAIN_ARRAY_X_FILE_NAME)
-            self.transformed_rel_train_arr_y_path = os.path.join(self.transformationed_dir_path,"Dataset_3",RELIANCE_TRAIN_ARRAY_y_FILE_NAME)
-            self.transformed_rel_test_arr_X_path = os.path.join(self.transformationed_dir_path,"Dataset_3",RELIANCE_TEST_ARRAY_X_FILE_NAME)
-            self.transformed_rel_test_arr_y_path = os.path.join(self.transformationed_dir_path,"Dataset_3",RELIANCE_TEST_ARRAY_y_FILE_NAME)
-
-            self.transformed_tatam_train_arr_X_path = os.path.join(self.transformationed_dir_path,"Dataset_4",TATAMOTORS_TRAIN_ARRAY_X_FILE_NAME)
-            self.transformed_tatam_train_arr_y_path = os.path.join(self.transformationed_dir_path,"Dataset_4",TATAMOTORS_TRAIN_ARRAY_y_FILE_NAME)
-            self.transformed_tatam_test_arr_X_path = os.path.join(self.transformationed_dir_path,"Dataset_4",TATAMOTORS_TEST_ARRAY_X_FILE_NAME)
-            self.transformed_tatam_test_arr_y_path = os.path.join(self.transformationed_dir_path,"Dataset_4",TATAMOTORS_TEST_ARRAY_y_FILE_NAME)
-
-            self.transformed_tcs_train_arr_X_path = os.path.join(self.transformationed_dir_path,"Dataset_5",TCS_TRAIN_ARRAY_X_FILE_NAME)
-            self.transformed_tcs_train_arr_y_path = os.path.join(self.transformationed_dir_path,"Dataset_5",TCS_TRAIN_ARRAY_y_FILE_NAME)
-            self.transformed_tcs_test_arr_X_path = os.path.join(self.transformationed_dir_path,"Dataset_5",TCS_TEST_ARRAY_X_FILE_NAME)
-            self.transformed_tcs_test_arr_y_path = os.path.join(self.transformationed_dir_path,"Dataset_5",TCS_TRAIN_ARRAY_y_FILE_NAME)
+            self.transformed_train_arr_X_path = os.path.join(self.transformationed_dir_path,TRAIN_ARRAY_X_FILE_NAME)
+            self.transformed_train_arr_y_path = os.path.join(self.transformationed_dir_path,TRAIN_ARRAY_y_FILE_NAME)
+            self.transformed_test_arr_X_path = os.path.join(self.transformationed_dir_path,TEST_ARRAY_X_FILE_NAME)
+            self.transformed_test_arr_y_path = os.path.join(self.transformationed_dir_path,TEST_ARRAY_y_FILE_NAME)
 
         except Exception  as e:
             raise InvestmentPredictionException(e,sys) 
