@@ -16,7 +16,7 @@ class DataIngestion:
         '''
         try:
             logging.info(f"{'>>'*20} Data Ingestion {'<<'*20}")
-            logging.info(f"{'--'*20}Building model for {collection_name}{'--'*20}")
+            logging.info(f"{'--'*15}Building model for {collection_name}{'--'*15}")
             self.data_ingestion_config = data_ingestion_config
             
         except Exception as e:

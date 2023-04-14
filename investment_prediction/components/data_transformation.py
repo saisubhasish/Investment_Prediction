@@ -51,7 +51,7 @@ class DataTransformation:
             train_data_arr = transformation_pipleine.transform(np.array(train_data).reshape(-1,1))
             test_data_arr = transformation_pipleine.transform(np.array(test_data).reshape(-1,1))
 
-            logging.info("Getting the X and Y of each dataset using no. of features and time horizon")
+            logging.info("Getting the X and Y of each dataset using time step = 60")
             X_train_arr, y_train_arr = utils.create_dataset(train_data_arr, time_step)
             X_test_arr, y_test_arr = utils.create_dataset(test_data_arr, time_step)
 
