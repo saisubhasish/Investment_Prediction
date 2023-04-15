@@ -158,7 +158,7 @@ def get_collection_as_dataframe(database_name:str,collection_name:str)->pd.DataF
     except Exception as e:
         raise InvestmentPredictionException(e, sys)
     
-def reshape_data(df):
+'''def reshape_data(data):
     """
     Description: This function returns numpy array data
     =========================================================
@@ -167,12 +167,12 @@ def reshape_data(df):
     =========================================================
     return numpy array
     """
-    df = np.array(df).reshape(-1,1)
-    return df
+    data = np.array(data).reshape(-1,1)
+    return data'''
 
 def split_data(df, test_size):
     """
-    Description: This function returns numpy array data
+    Description: This function takes dataframe as input and returns numpy array data
     =========================================================
     Params:
     df: data frame

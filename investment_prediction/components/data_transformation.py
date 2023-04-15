@@ -45,11 +45,11 @@ class DataTransformation:
             
             logging.info("Standardizing dataset")
             transformation_pipleine = DataTransformation.get_data_transformer_object()
-            transformation_pipleine.fit(np.array(train_data).reshape(-1,1))
+            transformation_pipleine.fit(train_data)
 
             logging.info("Transforming dataset")
-            train_data_arr = transformation_pipleine.transform(np.array(train_data).reshape(-1,1))
-            test_data_arr = transformation_pipleine.transform(np.array(test_data).reshape(-1,1))
+            train_data_arr = transformation_pipleine.transform(train_data)
+            test_data_arr = transformation_pipleine.transform(test_data)
 
             logging.info("Getting the X and Y of each dataset using time step = 60")
             X_train_arr, y_train_arr = utils.create_dataset(train_data_arr, time_step)
