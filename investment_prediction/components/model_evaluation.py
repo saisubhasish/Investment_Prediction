@@ -29,16 +29,18 @@ class ModelEvaluation:
         
     def initiate_model_evaluation(self)->artifact_entity.ModelEvaluationArtifact:
         try:
-            logging.info("If saved model folder has model the we will compare "
+            logging.info("If saved model folder has model then we will compare "
             "which model is best, trained or the model from saved model folder")
             latest_dir_path = self.model_resolver.get_latest_dir_path()
             if latest_dir_path==None:    
-                logging.info("# If there is no saved_models then we will accept the currnt model")                             
+                logging.info("# If there is no saved_models then we will accept the currnt model")      
+                print("Accepting the current model")                        
                 model_eval_artifact = artifact_entity.ModelEvaluationArtifact(is_model_accepted=True,
-                improved_accuracy=None)                                                              
+                improved_accuracy=None)                                                             
                 logging.info(f"Model evaluation artifact: {model_eval_artifact}")
                 return model_eval_artifact
 
+            print("Loading previous models") 
             logging.info("Finding location of transformer model and target encoder")
             transformer_path = self.model_resolver.get_latest_transformer_path()
             model_path = self.model_resolver.get_latest_model_path()
@@ -48,6 +50,7 @@ class ModelEvaluation:
             transformer = load_object(file_path=transformer_path)
             model = load_object(file_path=model_path)            
 
+            print("Loading current models") 
             logging.info("Currently trained model objects")
             current_transformer = load_object(file_path=self.data_transformation_artifact.transform_object_path)
             current_model  = load_object(file_path=self.model_trainer_artifact.model_path)

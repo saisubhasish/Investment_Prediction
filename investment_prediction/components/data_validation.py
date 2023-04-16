@@ -118,6 +118,7 @@ class DataValidation:
 
             logging.info("Setting 'Date' column as index")
             df = utils.set_index_as_Date(df=df)
+            print(df)
 
             logging.info("split datasets into train and test set")
             train_set, test_set = utils.split_data(df, self.data_validation_config.test_size)
@@ -126,11 +127,11 @@ class DataValidation:
             dataset_dir = os.path.dirname(self.data_validation_config.train_file_path)
             os.makedirs(dataset_dir,exist_ok=True)
 
-            logging.info("Saving combined df, train df and test df to dataset folder")
+            logging.info("Saving train data and test data")
             utils.save_numpy_array_data(file_path=self.data_validation_config.train_file_path, array=train_set)
             utils.save_numpy_array_data(file_path=self.data_validation_config.test_file_path, array=test_set)
             
-            # Write the report
+            print("Writing the report")
             logging.info("Writing report in yaml file")
             utils.write_yaml_file(file_path=self.data_validation_config.report_file_path,
             data=self.validation_error)   # valiadtion_error: drop columns, missing columns, drift report

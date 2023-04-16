@@ -50,6 +50,7 @@ class DataTransformation:
             logging.info("Transforming dataset")
             train_data_arr = transformation_pipleine.transform(train_data)
             test_data_arr = transformation_pipleine.transform(test_data)
+            print(train_data_arr)
 
             logging.info("Getting the X and Y of each dataset using time step = 60")
             X_train_arr, y_train_arr = utils.create_dataset(train_data_arr, time_step)
@@ -64,10 +65,11 @@ class DataTransformation:
             utils.save_numpy_array_data(file_path=self.data_transformation_config.transformed_test_arr_X_path, array=X_test_arr)
             utils.save_numpy_array_data(file_path=self.data_transformation_config.transformed_test_arr_y_path, array=y_test_arr)
 
-            # Saving object
+            print("Saving transformation object")
+            logging.info("Saving transformation object")
             utils.save_object(file_path=self.data_transformation_config.transform_object_path, obj=transformation_pipleine)
 
-            # Preparing Artifact
+            logging.info("Preparing Artifact")
             data_transformation_artifact = artifact_entity.DataTransformationArtifact(
                 transform_object_path=self.data_transformation_config.transform_object_path,             
                 transformed_train_arr_X_path = self.data_transformation_config.transformed_train_arr_X_path,

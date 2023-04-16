@@ -53,9 +53,10 @@ class ModelTrainer:
                 test_arr_X = utils.load_numpy_array_data(file_path=self.data_transformation_artifact.transformed_test_arr_X_path)
                 test_arr_y = utils.load_numpy_array_data(file_path=self.data_transformation_artifact.transformed_test_arr_y_path)
 
+                print("Model Training")
                 logging.info("Train the model")
                 model = self.train_model(train_arr_X ,train_arr_y)
-
+                
                 logging.info("Calculating r2 train score")
                 y_pred_train = model.predict(train_arr_X)
                 r2_train_score = r2_score(train_arr_y, y_pred_train)
@@ -66,6 +67,7 @@ class ModelTrainer:
 
                 logging.info(f"train score:{r2_train_score} and tests score {r2_test_score}")
                 
+                print("Checking if our model is Overfitted pr  underfitted")
                 logging.info("Checking if our model is underfitting or not")
                 if r2_test_score<self.model_trainer_config.expected_score:
                     raise Exception(f"Model is not good as it is not able to give \
@@ -77,8 +79,9 @@ class ModelTrainer:
                 if diff>self.model_trainer_config.overfitting_threshold:
                     raise Exception(f"Train and test score diff: {diff} is more than overfitting threshold {self.model_trainer_config.overfitting_threshold}")
                 
-                # Saving trained model to utils if it passes
-                logging.info("Saving mode object")
+                print(f"Train-Test difference: {diff}")
+                # Saving trained model using utils if it passes
+                logging.info("Saving model object")
                 utils.save_object(file_path=self.model_trainer_config.model_path, obj=model)
 
                 # Prepare artifact

@@ -14,7 +14,7 @@ class ModelResolver:
                 model_dir_name = "model"):
 
         self.model_registry=model_registry
-        os.makedirs(self.model_registry,exist_ok=True)
+        os.makedirs(self.model_registry,exist_ok=True)       # Making directory if not exists
         self.transformer_dir_name = transformer_dir_name
         self.model_dir_name=model_dir_name
 
