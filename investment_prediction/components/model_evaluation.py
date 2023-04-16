@@ -24,6 +24,7 @@ class ModelEvaluation:
             self.data_transformation_artifact=data_transformation_artifact
             self.model_trainer_artifact=model_trainer_artifact
             self.model_resolver = ModelResolver()
+            
         except Exception as e:
             raise InvestmentPredictionException(e,sys)
         

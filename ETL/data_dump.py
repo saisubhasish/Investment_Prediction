@@ -65,20 +65,14 @@ class Data_Loading:
 
         print(json_record_list[1])
         
-
+        logging.info("inserting converted json record to mongo db")
         try:
-            #logging.info("inserting converted json record to mongo db")
-            for company in company_list:
-                mongo_client[DATABASE_NAME].create_collection(
-                    company,
-                    timeseries= {
-                        "timeField": "Date",
-                        "metaField": "metadata",
-                        "granularity": "seconds"
-                        }
-                    )
+            logging.info("Creating collection using company list")
+            list(map(lambda company : mongo_client[DATABASE_NAME].create_collection(company, timeseries= {"timeField": "Date", "metaField": "metadata", "granularity": "seconds"}), company_list))
+            
             logging.info("Preparing list of collections")
             collection_list = mongo_client[DATABASE_NAME].list_collection_names()
+
             i = 0
             for collection in collection_list:
                 if collection == 'britannia-industries':
@@ -96,6 +90,7 @@ class Data_Loading:
                 elif collection == 'tata-consultancy-services':
                     mongo_client[DATABASE_NAME][collection].insert_many(json_record_list[4])
                     print(f'Record inserted successfully in collection: {collection}')
+                    
         except Exception as e:
             raise InvestmentPredictionException(e, sys)
 

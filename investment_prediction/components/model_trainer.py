@@ -1,13 +1,14 @@
+import os,sys 
+from typing import Optional
+from sklearn.metrics import r2_score
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dropout, LSTM, Dense
 
 from investment_prediction.entity import artifact_entity,config_entity
 from investment_prediction.exception import InvestmentPredictionException
 from investment_prediction.logger import logging
-from typing import Optional
-import os,sys 
-from sklearn.metrics import r2_score
 from investment_prediction import utils
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dropout, LSTM, Dense
+
 
 
 class ModelTrainer:

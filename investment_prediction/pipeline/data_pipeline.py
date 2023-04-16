@@ -5,14 +5,9 @@ from investment_prediction.config import raw_file_path, preprocessed_file_path
 from ETL.scrapper import Data_scraper
 from ETL.data_preprocessing import Data_Wrangling
 from ETL.data_dump import Data_Loading
-from investment_prediction.config import DATABASE_NAME, COLLECTION_NAME_br, COLLECTION_NAME_itc, COLLECTION_NAME_rel, COLLECTION_NAME_tatam, COLLECTION_NAME_tcs
 
-start_date = '2016-03-19'
-end_date = '2023-03-19'
-driver_path = r"D:\FSDS-iNeuron\10.Projects-DS\Investment_Prediction\selenium\chromedriver.exe"
-company_list = ['britannia-industries', 'itc', 'reliance-industries', 'tata-motors-ltd', 'tata-consultancy-services']
 
-def start_data_pipeline():
+def start_data_pipeline(DATABASE_NAME, start_date, end_date, driver_path, company_list):
     try:
         # Data Scrapping
         list(map(lambda company: Data_scraper.scraper(company, start_date, end_date, driver_path, raw_file_path), company_list))

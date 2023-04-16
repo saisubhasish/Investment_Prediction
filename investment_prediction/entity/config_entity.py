@@ -3,6 +3,7 @@ from investment_prediction.exception import InvestmentPredictionException
 from investment_prediction.logger import logging
 from datetime import datetime
 from investment_prediction.config import collection_name
+from investment_prediction.config import DATABASE_NAME
 
 
 FILE_NAME = f"{collection_name}.csv"
@@ -30,7 +31,7 @@ class DataIngestionConfig:
 
     def __init__(self,training_pipeline_config:TrainingPipelineConfig):
         try:
-            self.database_name="TimeSeries"
+            self.database_name = DATABASE_NAME
             self.collection_name = collection_name
             self.data_ingestion_dir = os.path.join(training_pipeline_config.artifact_dir , "data_ingestion")    
             self.feature_store_file_path = os.path.join(self.data_ingestion_dir,"feature_store", FILE_NAME)

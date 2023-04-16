@@ -1,12 +1,13 @@
+import os,sys 
+import pandas as pd
+import numpy as np
+from typing import Optional
+from scipy.stats import ks_2samp     # Compares the continuous distribution of two independent columns
+
 from investment_prediction.entity import artifact_entity,config_entity
 from investment_prediction.exception import InvestmentPredictionException
 from investment_prediction.logger import logging
-from scipy.stats import ks_2samp     # Compares the continuous distribution of two independent columns
-from typing import Optional
-import os,sys 
-import pandas as pd
 from investment_prediction import utils
-import numpy as np
 from investment_prediction.config import collection_name
 
 
@@ -50,6 +51,9 @@ class DataValidation:
             raise InvestmentPredictionException(e, sys)
             
     def data_drift(self,base_df:pd.DataFrame,current_df:pd.DataFrame,report_key_name:str):
+        """
+        This function checks the data drift in the dataset by comparing current data with base data
+        """
         try:
             drift_report=dict()
 
