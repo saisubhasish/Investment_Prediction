@@ -1,1 +1,1 @@
-![Model Flow](https://user-images.githubusercontent.com/102937478/232553195-01ad57ab-2a48-4809-b005-5774ce36ad82.png)
+![Investment Prediction  High Level Design](https://user-images.githubusercontent.com/102937478/232937810-8ece6b6b-1cb3-4f39-bff8-85755c91c8c6.png)
