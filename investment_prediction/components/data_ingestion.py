@@ -30,10 +30,10 @@ class DataIngestion:
             df:pd.DataFrame  = utils.get_collection_as_dataframe(
                 database_name=self.data_ingestion_config.database_name, 
                 collection_name=self.data_ingestion_config.collection_name)
-            logging.info(f"{'--'*15}Building model for {self.collection_name}{'--'*15}")
+            #logging.info(f"{'--'*15}Building model for {self.collection_name}{'--'*15}")
             print(df)
 
-            logging.info(f"Reading {self.collection_name} data")
+            #logging.info(f"Reading {self.collection_name} data")
             logging.info("Save data in feature store")
             logging.info("Create Feature store folder if not available")
             feature_store_dir = os.path.dirname(self.data_ingestion_config.feature_store_file_path)

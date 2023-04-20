@@ -12,7 +12,7 @@ company_list = ['britannia-industries', 'itc', 'reliance-industries', 'tata-moto
 
 if __name__ == '__main__':
     try:
-        start_data_pipeline(DATABASE_NAME, start_date, end_date, driver_path, company_list)
+        #start_data_pipeline(DATABASE_NAME, start_date, end_date, driver_path, company_list)
         start_training_pipeline()
 
     except Exception as e:
