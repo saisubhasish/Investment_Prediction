@@ -11,12 +11,15 @@ class ModelResolver:
     """
     def __init__(self,model_registry:str = "saved_models",
                 transformer_dir_name="transformer",
-                model_dir_name = "model"):
+                model_dir_name = "model",
+                data_registry:str="saved_datasets"):
 
         self.model_registry=model_registry
         os.makedirs(self.model_registry,exist_ok=True)       # Making directory if not exists
         self.transformer_dir_name = transformer_dir_name
         self.model_dir_name=model_dir_name
+        self.data_registry=data_registry
+        os.makedirs(self.data_registry,exist_ok=True)       # Making directory if not exists
 
 
     def get_latest_dir_path(self)->Optional[str]:
@@ -91,5 +94,43 @@ class ModelResolver:
         try:
             latest_dir = self.get_latest_save_dir_path()
             return os.path.join(latest_dir,self.transformer_dir_name,TRANSFORMER_OBJECT_FILE_NAME)
+        except Exception as e:
+            raise InvestmentPredictionException(e, sys)
+
+    def get_latest_dataset_dir_path(self)->Optional[str]:
+        """
+        This function returns None if there is no dataset present
+        Otherwise returns the path of the latest saved dataset directory
+        """
+        try:
+            dir_names = os.listdir(self.data_registry)
+            if len(dir_names)==0:
+                return None
+            dir_names = list(map(int,dir_names))
+            latest_dir_name = max(dir_names)
+            return os.path.join(self.data_registry,f"{latest_dir_name}")
+        except Exception as e:
+            raise InvestmentPredictionException(e, sys)
+
+    def get_latest_data_path(self):
+        """
+        This function raise Exception if there is no dataset present in saved datasets dir
+        Otherwise returns the path of the latest trained dataset present in saved_datasets directory
+        """
+        try:
+            latest_dir = self.get_latest_dir_path()
+            if latest_dir is None:
+                raise Exception(f"Dataset is not available")
+            return os.path.join(latest_dir,self.data,FILE_NAME)
+        except Exception as e:
+            raise InvestmentPredictionException(e, sys)
+
+    def get_latest_save_model_path(self):
+        """
+        This function extracts the latest saved_models directory and returns the path to save the latest model
+        """
+        try:
+            latest_dir = self.get_latest_save_dir_path()
+            return os.path.join(latest_dir,self.model_dir_name,MODEL_FILE_NAME)
         except Exception as e:
             raise InvestmentPredictionException(e, sys)

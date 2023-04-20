@@ -21,3 +21,5 @@ PyYAML
 numpy
 apache-airflow
 tensorflow
+matplotlib
+plotly

@@ -63,6 +63,7 @@ class DataValidationConfig:
 
             self.dataset_dir = os.path.join(self.data_validation_dir,"dataset")
             
+            self.curr_file_path = os.path.join(self.dataset_dir,"Dataset", FILE_NAME)
             self.train_file_path = os.path.join(self.dataset_dir,"Dataset",TRAIN_FILE_NAME)
             self.test_file_path = os.path.join(self.dataset_dir,"Dataset",TEST_FILE_NAME)
 

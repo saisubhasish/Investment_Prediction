@@ -117,6 +117,12 @@ class DataValidation:
                 logging.info("\n As all column are available in britannia df hence detecting data drift")
                 self.data_drift(base_df=base_df, current_df=curr_df, report_key_name= f"data_drift_within_{collection_name}_dataset")
 
+            logging.info("create dataset directory folder if not available")
+            dataset_dir = os.path.dirname(self.data_validation_config.curr_file_path)
+            os.makedirs(dataset_dir,exist_ok=True)
+
+            curr_df.to_csv(path_or_buf=self.data_validation_config.curr_file_path, index=False, header=True)
+
             logging.info(f"Considering 'Date' and 'Price' column for {collection_name} dataframe")
             df = curr_df[['Date', 'Price']]
 
@@ -126,10 +132,6 @@ class DataValidation:
 
             logging.info("split datasets into train and test set")
             train_set, test_set = utils.split_data(df, self.data_validation_config.test_size)
-                       
-            logging.info("create dataset directory folder if not available")
-            dataset_dir = os.path.dirname(self.data_validation_config.train_file_path)
-            os.makedirs(dataset_dir,exist_ok=True)
 
             logging.info("Saving train data and test data")
             utils.save_numpy_array_data(file_path=self.data_validation_config.train_file_path, array=train_set)
@@ -142,6 +144,7 @@ class DataValidation:
 
             logging.info("Preparing data validation artifacts") 
             data_validation_artifact = artifact_entity.DataValidationArtifact(report_file_path=self.data_validation_config.report_file_path,
+                                                                              curr_file_path=self.data_validation_config.curr_file_path,
                                                                               train_file_path=self.data_validation_config.train_file_path,
                                                                               test_file_path=self.data_validation_config.test_file_path)
             logging.info(f"Data validation artifact: {data_validation_artifact}")

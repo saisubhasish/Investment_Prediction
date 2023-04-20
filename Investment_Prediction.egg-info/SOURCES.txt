@@ -22,6 +22,6 @@ investment_prediction/entity/__init__.py
 investment_prediction/entity/artifact_entity.py
 investment_prediction/entity/config_entity.py
 investment_prediction/pipeline/__init__.py
+investment_prediction/pipeline/batch_prediction_pipeline.py
 investment_prediction/pipeline/data_pipeline.py
-investment_prediction/pipeline/prediction_pipeline.py
 investment_prediction/pipeline/training_pipeline.py
