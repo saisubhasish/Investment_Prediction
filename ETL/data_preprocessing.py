@@ -36,20 +36,6 @@ class Data_Wrangling:
         logging.info("Preparing list of dataframes")
         df_list = [df_br, df_itc, df_rel, df_tatam, df_tcs]
 
-        '''logging.info("Defining stock name list")
-        symbol_list = ['britannia', 'itc', 'reliance', 'tatamotors', 'tcs']
-
-        logging.info("Adding 'Symbol' column to dataframe")
-        try:
-            #utils.add_symbol(df_list, symbol_list)
-            df_br['Symbol'] = 'britannia'
-            df_itc['Symbol'] = 'itc'
-            df_rel['Symbol'] = 'rel'
-            df_tatam['Symbol'] = 'tatamotors'
-            df_tcs['Symbol'] = 'tcs'
-        except Exception as e:
-            raise InvestmentPredictionException(e, sys)'''
-
         logging.info("Pre-processing the raw data")
 
         try:
@@ -72,6 +58,17 @@ class Data_Wrangling:
             logging.info("Creating pre-processed file path if not exists")
             if not os.path.exists(preprocessed_file_path):
                 os.makedirs(preprocessed_file_path)
+
+        except Exception as e:
+            raise InvestmentPredictionException(e, sys)
+        
+        try:
+            logging.info("Reversing the data in dataframe")
+            df_br = df_br[::-1]
+            df_itc = df_itc[::-1]
+            df_rel = df_rel[::-1]
+            df_tcs = df_tcs[::-1]
+            df_tatam = df_tatam[::-1]
 
         except Exception as e:
             raise InvestmentPredictionException(e, sys)
