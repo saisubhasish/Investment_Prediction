@@ -10,7 +10,7 @@ collection_name = 'britannia-industries'
 raw_file_path = os.path.join(os.getcwd(),"raw_dataset")
 preprocessed_file_path = os.path.join(os.getcwd(),"pre_processed_dataset")
 
-time_step = 60
+time_step = 7 # the number of time steps of historical data that the model will use to make a single prediction.
 
 @dataclass
 class EnvironmentVariable:

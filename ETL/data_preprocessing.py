@@ -36,7 +36,7 @@ class Data_Wrangling:
         logging.info("Preparing list of dataframes")
         df_list = [df_br, df_itc, df_rel, df_tatam, df_tcs]
 
-        logging.info("Defining stock name list")
+        '''logging.info("Defining stock name list")
         symbol_list = ['britannia', 'itc', 'reliance', 'tatamotors', 'tcs']
 
         logging.info("Adding 'Symbol' column to dataframe")
@@ -48,7 +48,7 @@ class Data_Wrangling:
             df_tatam['Symbol'] = 'tatamotors'
             df_tcs['Symbol'] = 'tcs'
         except Exception as e:
-            raise InvestmentPredictionException(e, sys)
+            raise InvestmentPredictionException(e, sys)'''
 
         logging.info("Pre-processing the raw data")
 
