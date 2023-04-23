@@ -67,9 +67,13 @@ class Data_Loading:
         
         logging.info("inserting converted json record to mongo db")
         try:
-            logging.info("Creating collection using company list")
-            list(map(lambda company : mongo_client[DATABASE_NAME].create_collection(company, timeseries= {"timeField": "Date", "metaField": "metadata", "granularity": "seconds"}), company_list))
-            
+            logging.info("Creating collections using company list")
+            list(map(lambda company : mongo_client[DATABASE_NAME].create_collection(company, timeseries= {"timeField": "Date", "metaField": "metadata", "granularity": "seconds"}), company_list))           
+
+        except Exception as e:
+            pass
+
+        try:
             logging.info("Preparing list of collections")
             collection_list = mongo_client[DATABASE_NAME].list_collection_names()
 
