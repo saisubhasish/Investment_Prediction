@@ -61,17 +61,6 @@ class Data_Wrangling:
 
         except Exception as e:
             raise InvestmentPredictionException(e, sys)
-        
-        try:
-            logging.info("Reversing the data in dataframe")
-            df_br = df_br[::-1]
-            df_itc = df_itc[::-1]
-            df_rel = df_rel[::-1]
-            df_tcs = df_tcs[::-1]
-            df_tatam = df_tatam[::-1]
-
-        except Exception as e:
-            raise InvestmentPredictionException(e, sys)
 
         print(df_br)
         print(df_itc)
