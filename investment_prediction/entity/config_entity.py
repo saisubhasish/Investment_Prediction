@@ -61,8 +61,9 @@ class DataValidationConfig:
             self.base_file_path_tata_motors = os.path.join("tata-motors-ltd.csv")
             self.base_file_path_tata_consultancy_services = os.path.join("tata-consultancy-services.csv")
 
+            self.saved_dataset_dir = os.path.join("saved_datasets")
+
             self.dataset_dir = os.path.join(self.data_validation_dir,"dataset")
-            
             self.curr_file_path = os.path.join(self.dataset_dir,"Dataset", FILE_NAME)
             self.train_file_path = os.path.join(self.dataset_dir,"Dataset",TRAIN_FILE_NAME)
             self.test_file_path = os.path.join(self.dataset_dir,"Dataset",TEST_FILE_NAME)

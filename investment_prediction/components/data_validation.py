@@ -9,6 +9,7 @@ from investment_prediction.exception import InvestmentPredictionException
 from investment_prediction.logger import logging
 from investment_prediction import utils
 from investment_prediction.config import collection_name
+from investment_prediction.predictor import ModelResolver
 
 
 class DataValidation:
@@ -22,6 +23,7 @@ class DataValidation:
             self.data_validation_config = data_validation_config
             self.data_ingestion_artifact=data_ingestion_artifact
             self.validation_error=dict()
+            self.model_resolver = ModelResolver(data_registry=self.data_validation_config.saved_dataset_dir)
 
         except Exception as e:
             raise InvestmentPredictionException(e, sys)
@@ -120,8 +122,22 @@ class DataValidation:
             logging.info("create dataset directory folder if not available")
             dataset_dir = os.path.dirname(self.data_validation_config.curr_file_path)
             os.makedirs(dataset_dir,exist_ok=True)
-
             curr_df.to_csv(path_or_buf=self.data_validation_config.curr_file_path, index=False, header=True)
+
+            logging.info("If saved dataset folder has dataset then we will use this validated data for prediction pipeline")
+            # Saving dataset outside of artifact
+            latest_dir_path = self.model_resolver.get_latest_dataset_dir_path()
+            if latest_dir_path==None:    
+                logging.info("# There is no saved_dataset, hence saving the current data")      
+                print("Saving the current dataset")                        
+                
+            print("Getting or fetching the directory location to save latest dataset in different directory in each run")
+            logging.info("Saving datset in saved dataset dir")
+            dataset_path = self.model_resolver.get_latest_save_datset_path()
+
+            print("Saving dataset outside artifact to use in prediction pipeline")
+            logging.info('Saving dataset outside of artifact directory')
+            curr_df.to_csv(path_or_buf=dataset_path, index=False, header=True)
 
             logging.info(f"Considering 'Date' and 'Price' column for {collection_name} dataframe")
             df = curr_df[['Date', 'Price']]

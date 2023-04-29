@@ -3,6 +3,8 @@ from investment_prediction.entity.config_entity import TRANSFORMER_OBJECT_FILE_N
 from glob import glob
 from typing import Optional
 from investment_prediction.exception import InvestmentPredictionException
+from investment_prediction.entity.config_entity import FILE_NAME
+
 
 class ModelResolver:
     """
@@ -12,7 +14,8 @@ class ModelResolver:
     def __init__(self,model_registry:str = "saved_models",
                 transformer_dir_name="transformer",
                 model_dir_name = "model",
-                data_registry:str="saved_datasets"):
+                data_registry:str="saved_datasets",
+                dataset_dir_name = "dataset"):
 
         self.model_registry=model_registry
         os.makedirs(self.model_registry,exist_ok=True)       # Making directory if not exists
@@ -20,6 +23,7 @@ class ModelResolver:
         self.model_dir_name=model_dir_name
         self.data_registry=data_registry
         os.makedirs(self.data_registry,exist_ok=True)       # Making directory if not exists
+        self.dataset_dir_name = dataset_dir_name
 
 
     def get_latest_dir_path(self)->Optional[str]:
@@ -111,26 +115,40 @@ class ModelResolver:
             return os.path.join(self.data_registry,f"{latest_dir_name}")
         except Exception as e:
             raise InvestmentPredictionException(e, sys)
+        
+    def get_latest_save_dataset_dir_path(self)->str:
+        """
+        This function returns 0 to create a directory if there is no saved_models 
+        dir present, Otherwise returns by adding a number to pre-exist directory 
+        """
+        try:
+            latest_dir = self.get_latest_dataset_dir_path()
+            if latest_dir==None:  # If there is no pre-exist directory then create a directory as 0
+                return os.path.join(self.data_registry,f"{0}")
+            latest_dir_num = int(os.path.basename(self.get_latest_dataset_dir_path()))
+            return os.path.join(self.data_registry,f"{latest_dir_num+1}") # Otherwise creating a directory with a number addition
+        except Exception as e:
+            raise InvestmentPredictionException(e, sys)
 
-    def get_latest_data_path(self):
+    def get_latest_dataset_path(self):
         """
         This function raise Exception if there is no dataset present in saved datasets dir
         Otherwise returns the path of the latest trained dataset present in saved_datasets directory
         """
         try:
-            latest_dir = self.get_latest_dir_path()
+            latest_dir = self.get_latest_dataset_dir_path()
             if latest_dir is None:
                 raise Exception(f"Dataset is not available")
-            return os.path.join(latest_dir,self.data,FILE_NAME)
+            return os.path.join(latest_dir,self.dataset_dir_name,FILE_NAME)
         except Exception as e:
             raise InvestmentPredictionException(e, sys)
-
-    def get_latest_save_model_path(self):
+        
+    def get_latest_save_datset_path(self):
         """
         This function extracts the latest saved_models directory and returns the path to save the latest model
         """
         try:
-            latest_dir = self.get_latest_save_dir_path()
-            return os.path.join(latest_dir,self.model_dir_name,MODEL_FILE_NAME)
+            latest_dir = self.get_latest_save_dataset_dir_path()
+            return os.path.join(latest_dir,self.dataset_dir_name,FILE_NAME)
         except Exception as e:
             raise InvestmentPredictionException(e, sys)
