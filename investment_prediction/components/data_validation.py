@@ -96,17 +96,16 @@ class DataValidation:
             base_df_tcs = pd.read_csv(self.data_validation_config.base_file_path_tata_consultancy_services)
 
             base = self.data_ingestion_artifact.feature_store_file_path
-            base = base.split('\\')
 
-            if 'britannia-industries.csv' in base:
+            if 'britannia-industries.csv' in base.split('\\'):
                 base_df = base_df_br
-            elif 'itc.csv' in base:
+            elif 'itc.csv' in base.split('\\'):
                 base_df = base_df_itc
-            elif 'reliance-industries.csv' in base:
+            elif 'reliance-industries.csv' in base.split('\\'):
                 base_df = base_df_rel
-            elif 'tata-motors-ltd.csv' in base:
+            elif 'tata-motors-ltd.csv' in base.split('\\'):
                 base_df = base_df_tatam
-            elif 'tata-consultancy-services.csv' in base:
+            elif 'tata-consultancy-services.csv' in base.split('\\'):
                 base_df = base_df_tcs
 
             logging.info("Reading data from data ingestion artifact")
@@ -134,6 +133,11 @@ class DataValidation:
             print("Getting or fetching the directory location to save latest dataset in different directory in each run")
             logging.info("Saving datset in saved dataset dir")
             dataset_path = self.model_resolver.get_latest_save_datset_path()
+
+            logging.info(f'Creating the dataset directory: {dataset_path}')
+            print('Dataset Path: ',dataset_path)
+            if not os.path.exists(dataset_path):
+                os.makedirs(dataset_path)
 
             print("Saving dataset outside artifact to use in prediction pipeline")
             logging.info('Saving dataset outside of artifact directory')
