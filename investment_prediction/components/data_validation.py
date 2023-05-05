@@ -136,8 +136,14 @@ class DataValidation:
 
             logging.info(f'Creating the dataset directory: {dataset_path}')
             print('Dataset Path: ',dataset_path)
-            if not os.path.exists(dataset_path):
-                os.makedirs(dataset_path)
+            '''if not os.path.exists(dataset_path):
+                os.makedirs(dataset_path)'''
+            
+            for i in range(100000):
+                if f'{i}' in dataset_path.split('\\'):
+                    output_dir = f"saved_datasets\\{i}\\dataset"
+                    if not os.path.exists(output_dir):
+                        os.makedirs(output_dir)
 
             print("Saving dataset outside artifact to use in prediction pipeline")
             logging.info('Saving dataset outside of artifact directory')

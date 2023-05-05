@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import RobustScaler
 
 from investment_prediction import utils
 from investment_prediction.logger import logging
@@ -27,9 +27,9 @@ class DataTransformation:
     @classmethod
     def get_data_transformer_object(cls)->Pipeline:     # Attributes of this class will be same across all the object 
         try:
-            scaler =  StandardScaler()
+            scaler =  RobustScaler()
             pipeline = Pipeline(steps=[
-                    ('StandardScaler',scaler)  # To scale data in a range
+                    ('RobustScaler',scaler)  # To scale data in a range
                 ])
             return pipeline
         
